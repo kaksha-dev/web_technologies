@@ -1,9 +1,8 @@
 # Best Practices to start with for Website design and implementation
   - Check the similar exists for designs
-  - Design blueprint paper on paper
-  - May or may not gte UX Mocks
+  - Design blueprint paper on paper as we may or may not get UX Mocks
   - Breakdown our idea into smaller components and identify which components are repeating
-  - Create generic resiable componets as put them in proper place
+  - Create generic resiable componets and put them in proper place
   - Identify the components for each purpose
   - We have to decide which component should be parent and which is child - Hiereachy of the components depending on functionality under discussion
   - Deciding whether to use stateful or stateless components depending upon use case - Improves perfornace by trying to have staeless componets as pure components
