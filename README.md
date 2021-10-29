@@ -21,3 +21,8 @@
 
 # List of projects that can be picked up by students
 https://github.com/mittalvaibhav/uca2016
+
+# Preferred Technology Stack
+MERN(MongoDB, Express, React, Node)
+
+In case any student would like to use any other technology please disucss first with tutor first
