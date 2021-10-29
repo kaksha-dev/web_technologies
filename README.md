@@ -1,4 +1,4 @@
-# Best Practices to start with for Website design and implemen
+# Best Practices to start with for Website design and implementation
   - Check the similar exists for designs
   - Design blueprint paper on paper
   - May or may not gte UX Mocks
