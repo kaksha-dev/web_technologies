@@ -18,3 +18,6 @@
   - Formatted code prettierrc.js
   - Every component should be with in a folder(component name) with index.jsx and styles.jsx
   - User prettier and .prettierrec.js for code formatting
+
+# List of projects that can be picked up by students
+https://github.com/mittalvaibhav/uca2016
