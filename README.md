@@ -1,6 +1,4 @@
-# web_technologies
-
-Best Practices for Website design
+# Best Practices to start with for Website design and implemen
   - Check the similar exists for designs
   - Design blueprint paper on paper
   - May or may not gte UX Mocks
