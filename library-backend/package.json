@@ -1,0 +1,17 @@
+{
+  "name": "webtech",
+  "version": "1.0.0",
+  "description": "Full stack web project with MERN",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "'mern'"
+  ],
+  "author": "myself",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
