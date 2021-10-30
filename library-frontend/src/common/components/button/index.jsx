@@ -6,7 +6,16 @@ const Button = (props) => {
         backgroundColor: props.backgroundColor,
         color: props.color,
     };
-    return <button style={buttonStyle}>{props.label}</button>;
+
+    // const onClickHandler = () => {
+    //     console.log('Button is clicked');
+    // };
+
+    return (
+        <button style={buttonStyle} onClick={props.clickHandler}>
+            {props.label}
+        </button>
+    );
     // return (
     //     <button
     //         style={{
