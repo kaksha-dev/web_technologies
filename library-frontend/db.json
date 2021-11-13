@@ -1,0 +1,12 @@
+{
+    "books": [
+        { "id": 0, "name": "BOneName", "authorName": "BOneAuthorName" },
+        { "id": 1, "name": "BTwoName", "authorName": "BTwoAuthorName" },
+        { "id": 2, "name": "BThreeName", "authorName": "BThreeAuthorName" }
+    ],
+    "quotes": [
+        { "id": 0, "name": "QOneName", "authorName": "QOneAuthorName" },
+        { "id": 1, "name": "QTwoName", "authorName": "QTwoAuthorName" },
+        { "id": 2, "name": "QThreeName", "authorName": "QThreeAuthorName" }
+    ]
+}
