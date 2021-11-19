@@ -3,8 +3,13 @@ import React from 'react';
 const Button = (props) => {
     // const buttonLabel = 'Submit';
     const buttonStyle = {
-        backgroundColor: props.backgroundColor,
-        color: props.color,
+        backgroundColor: props.backgroundColor
+            ? props.backgroundColor
+            : '#0a58ca',
+        color: props.color ? props.color : 'white',
+        border: props.border ? props.border : '1px solid',
+        borderRadius: props.borderRadius ? props.borderRadius : '20px',
+        padding: props.padding ? props.padding : '0px 10px',
     };
 
     // const onClickHandler = () => {
@@ -12,7 +17,11 @@ const Button = (props) => {
     // };
 
     return (
-        <button style={buttonStyle} onClick={props.clickHandler}>
+        <button
+            style={buttonStyle}
+            onClick={props.clickHandler}
+            id="addBooksButton"
+        >
             {props.label}
         </button>
     );

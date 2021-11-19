@@ -2,16 +2,10 @@ import React, { useRef } from 'react';
 import { StyledHeader } from './styles';
 import Button from './../../../common/components/button';
 
-const AddBooks = () => {
-    const nameRef = useRef(null);
-    const authorNameRef = useRef(null);
-
+const EditBooks = ({ formValues }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
-        let dataToSubmit = {
-            name: nameRef.current.value,
-            authorName: authorNameRef.current.value,
-        };
+        let dataToSubmit = {};
 
         fetch('http://localhost:3001/books', {
             method: 'POST',
@@ -28,7 +22,7 @@ const AddBooks = () => {
 
     return (
         <>
-            <StyledHeader>Add Books</StyledHeader>
+            <StyledHeader>Edit Books</StyledHeader>
             <form>
                 <div className="row">
                     <div className="offset-md-1 col-md-5">
@@ -40,7 +34,6 @@ const AddBooks = () => {
                                 type="text"
                                 className="form-control"
                                 id="name"
-                                ref={nameRef}
                                 aria-describedby="name"
                                 placeholder="Enter book name"
                             />
@@ -57,7 +50,6 @@ const AddBooks = () => {
                                 type="text"
                                 className="form-control"
                                 id="authorName"
-                                ref={authorNameRef}
                                 aria-describedby="authorName"
                                 placeholder="Enter Author name"
                             />
@@ -74,4 +66,4 @@ const AddBooks = () => {
     );
 };
 
-export default AddBooks;
+export default EditBooks;

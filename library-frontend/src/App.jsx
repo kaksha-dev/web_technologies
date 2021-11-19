@@ -7,6 +7,7 @@ import Home from './pages/home';
 import Header from './common/components/header';
 import Footer from './common/components/footer';
 import AddBooks from './pages/home/addBooks';
+import EditBooks from './pages/home/editBooks';
 
 function App() {
     // const header = 'Welcome to the react application from index or App';
@@ -39,6 +40,7 @@ function App() {
                 <Switch>
                     <Route exact path="/" component={() => <Home />} />
                     <Route path="/addbooks" component={AddBooks} />
+                    <Route path="/editbooks" component={EditBooks} />
                 </Switch>
             </Router>
             <Footer />
