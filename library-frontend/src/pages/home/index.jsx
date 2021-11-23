@@ -28,9 +28,9 @@ const Home = () => {
         // window.history.pushState('/addbooks');
     };
 
-    const editBookAction = () => {
-        console.log('Edit books called');
-        history.push('/editbooks');
+    const editBookAction = (selectedBook) => {
+        console.log('Edit books called with book as: ', selectedBook);
+        history.push({ pathname: '/editbooks', selectedBook: selectedBook });
     };
 
     // Hard code Data

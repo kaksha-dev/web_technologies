@@ -1,23 +1,50 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { StyledHeader } from './styles';
 import Button from './../../../common/components/button';
 
-const EditBooks = ({ formValues }) => {
+const EditBooks = () => {
+    const history = useHistory();
+    const [formValues, setFormValues] = useState(history.location.selectedBook);
+
+    const updateFormValue = (event) => {
+        // formValues.name = event.target.value;
+        // setFormValues(formValues);
+
+        // let newObject = { ...formValues };
+        // newObject[event.target.id] = event.target.value;
+        // setFormValues(newObject);
+
+        setFormValues({ ...formValues, [event.target.id]: event.target.value });
+        console.log(
+            'EditBooksComponent: The selectedbook data is: ',
+            formValues
+        );
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        let dataToSubmit = {};
 
-        fetch('http://localhost:3001/books', {
-            method: 'POST',
+        fetch(`http://localhost:3001/books/${formValues.id}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(dataToSubmit),
+            body: JSON.stringify(formValues),
         })
-            .then((response) => response.json())
-            .then((data) =>
-                console.log('The created and retubed data is. ', data)
-            );
+            .then((response) => {
+                if (response.ok) {
+                    history.push('/');
+                }
+                response.json();
+            })
+            .then((data) => {
+                console.log('The created and retubed data is. ', data);
+            })
+            .catch((error) => {
+                window.alert('error');
+            });
     };
 
     return (
@@ -35,7 +62,9 @@ const EditBooks = ({ formValues }) => {
                                 className="form-control"
                                 id="name"
                                 aria-describedby="name"
+                                value={formValues?.name}
                                 placeholder="Enter book name"
+                                onChange={updateFormValue}
                             />
                         </div>
                     </div>
@@ -51,7 +80,9 @@ const EditBooks = ({ formValues }) => {
                                 className="form-control"
                                 id="authorName"
                                 aria-describedby="authorName"
+                                value={formValues?.authorName}
                                 placeholder="Enter Author name"
+                                onChange={updateFormValue}
                             />
                         </div>
                     </div>

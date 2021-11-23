@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { StyledHeader } from './styles';
 import Button from './../../../common/components/button';
 
 const AddBooks = () => {
+    const history = useHistory();
     const nameRef = useRef(null);
     const authorNameRef = useRef(null);
 
@@ -20,9 +22,14 @@ const AddBooks = () => {
             },
             body: JSON.stringify(dataToSubmit),
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.ok) {
+                    history.push('/');
+                }
+                return response.json();
+            })
             .then((data) =>
-                console.log('The created and retubed data is. ', data)
+                console.log('The created and returned data is. ', data)
             );
     };
 

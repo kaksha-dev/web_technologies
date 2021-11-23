@@ -27,7 +27,7 @@ const DataTable = ({ books, dataLoading, editAction }) => {
                                 <StyledTableCell>
                                     <Button
                                         label="Edit"
-                                        clickHandler={editAction}
+                                        clickHandler={() => editAction(book)}
                                     />
                                 </StyledTableCell>
                             </tr>
