@@ -14,3 +14,7 @@ export const StyledTableHeader = styled(StyledTableCell)`
 export const StyledTable = styled.table`
     border: 1px solid black;
 `;
+
+export const StyledTableCellAction = styled(StyledTableCell)`
+    display: flex;
+`;

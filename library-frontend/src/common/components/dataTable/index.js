@@ -1,9 +1,14 @@
 import React from 'react';
-import { StyledTable, StyledTableHeader, StyledTableCell } from './styles';
+import {
+    StyledTable,
+    StyledTableHeader,
+    StyledTableCell,
+    StyledTableCellAction,
+} from './styles';
 import Spinner from './../spinner';
 import Button from './../button';
 
-const DataTable = ({ books, dataLoading, editAction }) => {
+const DataTable = ({ books, dataLoading, editAction, deleteAction }) => {
     return (
         <StyledTable>
             <thead>
@@ -24,12 +29,16 @@ const DataTable = ({ books, dataLoading, editAction }) => {
                                 <StyledTableCell>
                                     {book.authorName}
                                 </StyledTableCell>
-                                <StyledTableCell>
+                                <StyledTableCellAction>
                                     <Button
                                         label="Edit"
                                         clickHandler={() => editAction(book)}
                                     />
-                                </StyledTableCell>
+                                    <Button
+                                        label="Delete"
+                                        clickHandler={() => deleteAction(book)}
+                                    />
+                                </StyledTableCellAction>
                             </tr>
                         );
                     })
