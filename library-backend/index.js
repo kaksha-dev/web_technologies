@@ -24,37 +24,66 @@ const books = [
     authorName: "BDOneAuthorName",
     id: 3,
   },
-  {
-    name: "BDTwoNameModified",
-    authorName: "BDTwoAuthorNameModifed",
-    id: 4,
-  },
-  {
-    name: "BD_UI_ThreeName",
-    authorName: "BD_UI_ThreeAuthorName",
-    id: 5,
-  },
-  {
-    name: "BD_UI_FourName",
-    authorName: "BD_UI_FourAuthorName",
-    id: 6,
-  },
-  {
-    name: "BDFiveName",
-    authorName: "BDFiveAuthorName",
-    id: 7,
-  },
 ];
+let latestId = 4;
+app.use(express.json());
 
 app.get("/", function (request, response) {
-  console.log(request);
   response.send("Hello world with root path");
 });
 
 app.get("/books", function (request, response) {
   // response.send("Write some logic here to provide the list of books");
-  console.log("Sending som eresponse back");
+  console.log("Sending the response of the get request");
+  response.header("Access-Control-Allow-Origin", "http://localhost:3000");
   response.send(books);
+});
+
+app.options("*", function (request, response) {
+  console.log("Sending the response of the post request");
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Access-Control-Allow-Headers", "*");
+  response.setHeader("Access-Control-Allow-Methods", "*");
+  response.send("");
+});
+
+app.post("/books", function (request, response) {
+  console.log("Sending the response of the post request");
+  response.setHeader("Content-Type", "application/json");
+
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+  );
+  response.setHeader("Access-Control-Allow-Methods", "*");
+
+  let requestBook = request.body;
+  let databaseBook = { ...requestBook, id: latestId++ };
+  books.push(databaseBook);
+  response.send(databaseBook);
+});
+
+app.put("/books/:id", function (request, response) {
+  console.log("Sending the response of the put request");
+  response.setHeader("Content-Type", "application/json");
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Access-Control-Allow-Headers", "*");
+  response.setHeader("Access-Control-Allow-Methods", "*");
+
+  let requestBookId = request.params.id;
+  let requestBook = request.body;
+  console.log("The book to be edited is: ", request.params);
+  console.log("The book to be edited is: ", requestBook);
+  // Write logic here to edit on object from array
+  for (let i = 0; i < books.length; i++) {
+    if (books[i].id == requestBookId) {
+      books[i] = requestBook;
+    }
+  }
+  // let databaseBook = { ...requestBook, id: latestId++ };
+  // books.push(databaseBook);
+  response.send(requestBook);
 });
 
 app.listen(port, function () {
