@@ -1,0 +1,24 @@
+{
+  "books": [
+    {
+      "name": "BDOneNameModified",
+      "authorName": "BDOneAuthorNameModified",
+      "id": 0
+    },
+    {
+      "id": 1,
+      "name": "BTwoName",
+      "authorName": "BTwoAuthorName"
+    },
+    {
+      "id": 2,
+      "name": "BThreeName",
+      "authorName": "BThreeAuthorName"
+    },
+    {
+      "name": "BDOneName",
+      "authorName": "BDOneAuthorName",
+      "id": 3
+    }
+  ]
+}
