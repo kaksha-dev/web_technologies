@@ -1,5 +1,16 @@
 var express = require("express");
 var app = express();
+require("./config/dbconnection");
+
+// mongoose
+//   .connect("mongodb://127.0.0.1:27018/test")
+//   .then((success) => {
+//     console.log(success);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
 const booksRoute = require("./routes/books");
 
 const port = 3001;
