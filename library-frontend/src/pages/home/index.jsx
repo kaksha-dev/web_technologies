@@ -54,7 +54,7 @@ const Home = () => {
 
     const deleteBookHandler = () => {
         // make api call to delete the book from server
-        fetch(`http://localhost:3001/books/${selectedBook.id}`, {
+        fetch(`http://localhost:3001/books/${selectedBook._id}`, {
             method: 'DELETE',
         })
             .then((response) => {

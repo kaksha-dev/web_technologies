@@ -26,7 +26,7 @@ const EditBooks = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        fetch(`http://localhost:3001/books/${formValues.id}`, {
+        fetch(`http://localhost:3001/books/${formValues._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
