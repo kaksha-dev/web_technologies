@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const booksModel = require("./../models/books");
-var books = require("./../datastubs/books.json").books;
+// var books = require("./../datastubs/books.json").books;
 
-let latestId = 4;
+// let latestId = 4;
 
 router.get("/", function (request, response) {
   console.log("Sending the response of the get request");

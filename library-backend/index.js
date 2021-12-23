@@ -1,5 +1,7 @@
 var express = require("express");
 var app = express();
+var path = require("path");
+
 require("./config/dbconnection");
 
 // mongoose
@@ -18,17 +20,29 @@ const port = 3001;
 //  All the Middlewares
 app.use(express.json());
 // Route handlers
-app.get("/", function (request, response) {
-  response.send("Hello world with root path");
-});
+// app.get("/", function (request, response) {
+//   response.send("Hello world with root path");
+// });
 
-app.use("*", function (req, res, next) {
-  console.log("Custom middleare is called");
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "*");
-  res.setHeader("Access-Control-Allow-Methods", "*");
-  next();
-});
+// app.use("/", express.static("build"));
+app.use(
+  "/",
+  express.static(path.join(__dirname, "build"), {
+    setHeaders: (response, path) => {
+      console.log(path);
+      response.setHeader("Cache-Control", "public,max-age=3600000,immutable");
+      response.setHeader("Expires", "public,max-age=3600000,immutable");
+    },
+  })
+);
+
+// app.use("*", function (req, res, next) {
+//   console.log("Custom middleare is called");
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Headers", "*");
+//   res.setHeader("Access-Control-Allow-Methods", "*");
+//   next();
+// });
 
 app.use("/books", booksRoute);
 
