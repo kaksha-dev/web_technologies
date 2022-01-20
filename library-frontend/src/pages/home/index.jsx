@@ -18,7 +18,12 @@ const Home = () => {
 
     const getBooksData = () => {
         setBooksDataLoading(true);
-        fetch('http://localhost:3001/books')
+        fetch('http://localhost:3001/books', {
+            method: 'GET',
+            headers: {
+                token: true,
+            },
+        })
             .then((response) => {
                 setBooksDataLoading(false);
                 return response.json();

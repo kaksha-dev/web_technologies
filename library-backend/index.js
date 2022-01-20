@@ -2,6 +2,8 @@ var express = require("express");
 var app = express();
 var path = require("path");
 
+const authenticateRequest = require("./utils/auth");
+
 require("./config/dbconnection");
 
 // mongoose
@@ -14,6 +16,7 @@ require("./config/dbconnection");
 //   });
 
 const booksRoute = require("./routes/books");
+const usersRoute = require("./routes/users");
 
 const port = 3001;
 
@@ -36,20 +39,27 @@ app.use(
   })
 );
 
-// app.use("*", function (req, res, next) {
-//   console.log("Custom middleare is called");
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Headers", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "*");
-//   next();
-// });
-
-app.use("/books", booksRoute);
+app.use("*", function (req, res, next) {
+  console.log("Custom middleare is called");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  next();
+});
 
 app.options("*", function (request, response) {
   console.log("Sending the response of the options request");
   response.send("");
 });
+
+app.use("/users", usersRoute);
+
+app.use("*", function (req, res, next) {
+  // Authenticating the user
+  authenticateRequest(req, res, next);
+});
+
+app.use("/books", booksRoute);
 
 app.listen(port, function () {
   console.log(`App listening on port ${port}`);

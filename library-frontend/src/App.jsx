@@ -3,7 +3,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import AuthenticatedRoute from './common/components/authenticatedRoute';
 import Home from './pages/home';
+import Login from './pages/login';
 import Header from './common/components/header';
 import Footer from './common/components/footer';
 import AddBooks from './pages/home/addBooks';
@@ -38,9 +40,18 @@ function App() {
             <Router>
                 <Header />
                 <Switch>
-                    <Route exact path="/" component={() => <Home />} />
-                    <Route path="/addbooks" component={AddBooks} />
-                    <Route path="/editbooks" component={EditBooks} />
+                    {/* <Route exact path="/" component={() => <Home />} /> */}
+                    <AuthenticatedRoute
+                        exact
+                        path="/"
+                        component={() => <Home />}
+                    />
+                    <Route path="/login" component={() => <Login />} />
+                    <AuthenticatedRoute path="/addbooks" component={AddBooks} />
+                    <AuthenticatedRoute
+                        path="/editbooks"
+                        component={EditBooks}
+                    />
                 </Switch>
             </Router>
             <Footer />

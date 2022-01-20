@@ -5,6 +5,8 @@ const Button = (props) => {
     const buttonStyle = {
         backgroundColor: props.backgroundColor
             ? props.backgroundColor
+            : props.disabled
+            ? 'grey'
             : '#0a58ca',
         color: props.color ? props.color : 'white',
         border: props.border ? props.border : '1px solid',
@@ -21,6 +23,7 @@ const Button = (props) => {
             style={buttonStyle}
             onClick={props.clickHandler}
             id="addBooksButton"
+            {...props}
         >
             {props.label}
         </button>

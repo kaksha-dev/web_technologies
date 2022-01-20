@@ -1,7 +1,19 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Button from './../button';
 
 const Header = () => {
+    const history = useHistory();
+
+    const handleLogout = (event) => {
+        event.preventDefault();
+
+        // Make api call to logout
+        // if request pass then remove the variable
+        localStorage.removeItem('isAuthenticated');
+        history.push('/login');
+    };
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -49,20 +61,7 @@ const Header = () => {
                                 <a className="nav-link disabled">Admin</a>
                             </li>
                         </ul>
-                        <form className="d-flex">
-                            <input
-                                className="form-control me-2"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                            />
-                            <button
-                                className="btn btn-outline-success"
-                                type="submit"
-                            >
-                                Search
-                            </button>
-                        </form>
+                        <Button label="LOGOUT" clickHandler={handleLogout} />
                     </div>
                 </div>
             </nav>{' '}
