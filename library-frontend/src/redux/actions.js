@@ -1,0 +1,2 @@
+export const SET_SELECTED_BOOK = 'SET_SELECTED_BOOK';
+export const SET_BOOKS_LIST = 'SET_BOOKS_LIST';
