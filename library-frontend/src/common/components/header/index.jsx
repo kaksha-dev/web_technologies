@@ -2,9 +2,16 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Button from './../button';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserAuthenticated as setUserAuthenticatedRedux } from './../../../redux/actions';
 
 const Header = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
+
+    const isAuthenticated = useSelector(
+        (state) => state.userReducer.isAuthenticated
+    );
 
     const handleLogout = (event) => {
         event.preventDefault();
@@ -12,7 +19,8 @@ const Header = () => {
         // Make api call to logout
         // if request pass then remove the variable
         localStorage.removeItem('isAuthenticated');
-        history.push('/login');
+        // history.push('/login');
+        dispatch(setUserAuthenticatedRedux(false));
     };
     return (
         <>
@@ -61,7 +69,17 @@ const Header = () => {
                                 <a className="nav-link disabled">Admin</a>
                             </li>
                         </ul>
-                        <Button label="LOGOUT" clickHandler={handleLogout} />
+                        {isAuthenticated ? (
+                            <>
+                                <span>Welcome user</span>
+                                <Button
+                                    label="LOGOUT"
+                                    clickHandler={handleLogout}
+                                />
+                            </>
+                        ) : (
+                            <Button label="LOGIN" clickHandler={() => {}} />
+                        )}
                     </div>
                 </div>
             </nav>{' '}

@@ -4,9 +4,15 @@ import { useHistory } from 'react-router-dom';
 import Spinner from './../../common/components/spinner';
 import Modal from './../../common/components/modal';
 import Notification from './../../common/components/notification';
+import { useDispatch } from 'react-redux';
+import {
+    setSelectedBook as setSelectedBookRedux,
+    setBooksList as setBooksListRedux,
+} from './../../redux/actions';
 
 const Home = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const [books, setBooks] = useState([]);
     const [booksDataLoading, setBooksDataLoading] = useState(false);
     const [selectedBook, setSelectedBook] = useState({});
@@ -32,6 +38,7 @@ const Home = () => {
                 // books = data;
                 console.log('The books from api response are: ', books);
                 setBooks(data);
+                dispatch(setBooksListRedux(data));
             });
     };
 
@@ -43,7 +50,9 @@ const Home = () => {
 
     const editBookAction = (selectedBook) => {
         console.log('Edit books called with book as: ', selectedBook);
-        history.push({ pathname: '/editbooks', selectedBook: selectedBook });
+        dispatch(setSelectedBookRedux(selectedBook));
+        history.push({ pathname: '/editbooks' });
+        // history.push({ pathname: '/editbooks', selectedBook: selectedBook });
     };
 
     const showDeletePopUp = (selectedBook) => {

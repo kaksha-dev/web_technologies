@@ -3,10 +3,14 @@ import { useHistory } from 'react-router-dom';
 
 import { StyledHeader } from './styles';
 import Button from './../../../common/components/button';
+import { useSelector } from 'react-redux';
 
 const EditBooks = () => {
     const history = useHistory();
-    const [formValues, setFormValues] = useState(history.location.selectedBook);
+    const selectedBookFromRedux = useSelector((state) => state.selectedBook);
+
+    // const [formValues, setFormValues] = useState(history.location.selectedBook);
+    const [formValues, setFormValues] = useState(selectedBookFromRedux);
 
     const updateFormValue = (event) => {
         // formValues.name = event.target.value;

@@ -1,8 +1,7 @@
 import { combineReducers, createStore } from 'redux';
-import { booksReducer } from './reducer';
+import { booksReducer, userReducer } from './reducer';
 
 export const store = createStore(
-    combineReducers({
-        booksReducer,
-    })
+    combineReducers({ booksReducer, userReducer }),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

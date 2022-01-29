@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from './../../common/components/button';
 import Notification from './../../common/components/notification';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setUserAuthenticated as setUserAuthenticatedRedux } from './../../redux/actions';
 
 const Login = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const [loginFormValues, setLoginFormValues] = useState({});
     const [isAuthenticated, setIsAuthenticated] = useState(true);
 
@@ -37,6 +39,7 @@ const Login = () => {
                 if (response.ok) {
                     localStorage.setItem('isAuthenticated', true);
                     setIsAuthenticated(true);
+                    dispatch(setUserAuthenticatedRedux(true));
                     history.push('/');
                     console.log('The response headers are: ', response.headers);
                     localStorage.setItem('token', response.headers.token);
