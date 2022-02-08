@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var path = require("path");
 
-const authenticateRequest = require("./utils/auth");
+const authentication = require("./utils/auth");
 
 require("./config/dbconnection");
 
@@ -44,6 +44,7 @@ app.use("*", function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
   res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Expose-Headers", "token");
   next();
 });
 
@@ -56,7 +57,7 @@ app.use("/users", usersRoute);
 
 app.use("*", function (req, res, next) {
   // Authenticating the user
-  authenticateRequest(req, res, next);
+  authentication.authenticateRequest(req, res, next);
 });
 
 app.use("/books", booksRoute);

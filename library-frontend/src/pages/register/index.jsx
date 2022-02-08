@@ -1,80 +1,54 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import Button from './../../common/components/button';
 import Notification from './../../common/components/notification';
-import { useDispatch } from 'react-redux';
-import {
-    setUserAuthenticated as setUserAuthenticatedRedux,
-    setUserDetails as setUserDetailsRedux,
-} from './../../redux/actions';
 
-const Login = () => {
-    const history = useHistory();
-    const dispatch = useDispatch();
-    const [loginFormValues, setLoginFormValues] = useState({});
-    const [isAuthenticated, setIsAuthenticated] = useState(true);
+const Register = () => {
+    const [registerFormValues, setRegisterFormValues] = useState({});
+    const [registerSuccess, setRegisterSuccess] = useState(false);
 
-    const updateLoginFormValues = (event) => {
-        setLoginFormValues({
-            ...loginFormValues,
+    const updateRegisterFormValues = (event) => {
+        setRegisterFormValues({
+            ...registerFormValues,
             [event.target.id]: event.target.value,
         });
-        console.log(
-            'Login Component: The entered credntials are: ',
-            loginFormValues
-        );
     };
 
-    const handleLogin = (event) => {
+    const initialState = {
+        name: '',
+        username: '',
+        password: '',
+    };
+
+    const handleRegister = (event) => {
         event.preventDefault();
 
-        // Make api call to authenticate the user
-        fetch('http://localhost:3001/users/login', {
+        // Make api call to register the user
+        fetch('http://localhost:3001/users/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(loginFormValues),
+            body: JSON.stringify(registerFormValues),
         })
             .then((response) => {
-                // If user is authenticate then set localstorage isAuthenticated to true
-                // else remove the variable
                 if (response.ok) {
-                    setIsAuthenticated(true);
-                    dispatch(setUserAuthenticatedRedux(true));
-                    localStorage.setItem('isAuthenticated', true);
-                    localStorage.setItem(
-                        'token',
-                        response.headers.get('token')
-                    );
-                    history.push('/');
+                    setRegisterSuccess(true);
+                    setRegisterFormValues(initialState);
                 } else {
-                    setIsAuthenticated(false);
                 }
                 return response.json();
             })
-            .then((data) => {
-                // save data to redux
-                dispatch(setUserDetailsRedux(data));
-            });
-    };
-
-    const handleLogout = (event) => {
-        event.preventDefault();
-
-        // Make api call to logout
-        // if request pass then remove the variable
-        localStorage.removeItem('isAuthenticated');
+            .then((data) => console.log('The user details are ', data));
     };
 
     return (
         <>
             <div className="row">
                 <div className="offset-md-7 col-md-4">
-                    {!isAuthenticated ? (
+                    {registerSuccess ? (
                         <Notification
-                            message="Incorrect username or password"
-                            type="failure"
+                            message="User registration successful"
+                            type="success"
                         />
                     ) : (
                         ``
@@ -84,11 +58,29 @@ const Login = () => {
 
             <div className="row">
                 <div className="offset-md-7 col-md-4">
-                    <h4>Login to the library</h4>
+                    <h4>Register to the library</h4>
                 </div>
             </div>
 
             <form>
+                <div className="row">
+                    <div className="offset-md-7 col-md-3">
+                        <div className="mb-3">
+                            <label for="name" class="form-label">
+                                Name
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="name"
+                                aria-describedby="name"
+                                value={registerFormValues?.name}
+                                placeholder="Enter name"
+                                onChange={updateRegisterFormValues}
+                            />
+                        </div>
+                    </div>
+                </div>
                 <div className="row">
                     <div className="offset-md-7 col-md-3">
                         <div className="mb-3">
@@ -100,9 +92,9 @@ const Login = () => {
                                 className="form-control"
                                 id="username"
                                 aria-describedby="username"
-                                value={loginFormValues?.username}
+                                value={registerFormValues?.username}
                                 placeholder="Enter username"
-                                onChange={updateLoginFormValues}
+                                onChange={updateRegisterFormValues}
                             />
                         </div>
                     </div>
@@ -118,9 +110,9 @@ const Login = () => {
                                 className="form-control"
                                 id="password"
                                 aria-describedby="password"
-                                value={loginFormValues?.password}
+                                value={registerFormValues?.password}
                                 placeholder="Enter password"
-                                onChange={updateLoginFormValues}
+                                onChange={updateRegisterFormValues}
                             />
                         </div>
                     </div>
@@ -128,14 +120,14 @@ const Login = () => {
                 <div className="row">
                     <div className="offset-md-7 col-md-3">
                         <Button
-                            label="LOGIN"
-                            clickHandler={handleLogin}
-                            disabled={
-                                !(
-                                    loginFormValues.username &&
-                                    loginFormValues.password
-                                )
-                            }
+                            label="Submit"
+                            clickHandler={handleRegister}
+                            // disabled={
+                            //     !(
+                            //         registerFormValues.username &&
+                            //         registerFormValues.password
+                            //     )
+                            // }
                         />
                     </div>
                 </div>
@@ -144,4 +136,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;

@@ -5,7 +5,9 @@ import { useSelector } from 'react-redux';
 const AuthenticatedRoute = (props) => {
     // const isAuthenticated = localStorage.getItem('isAuthenticated');
     const isAuthenticated = useSelector(
-        (state) => state.userReducer.isAuthenticated
+        (state) =>
+            state.userReducer.isAuthenticated ||
+            localStorage.getItem('isAuthenticated')
     );
 
     return (

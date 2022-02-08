@@ -1,14 +1,19 @@
-function authenticateRequest(request, response, next) {
-  console.log("The request headres are: ", request.headers);
+const jwt = require("jsonwebtoken");
 
-  if (request.headers.token === "secrethashedtoken") {
-    next();
-    console.log("Authenticated user");
-  } else {
-    next();
-    // response.status(401).send({ message: "Unauthenticated user" });
+function authenticateRequest(request, response, next) {
+  try {
+    jwt.verify(request.headers.token, "ucasecretkey", (error, result) => {
+      if (error) {
+        // next();
+        response.status(401).send({ message: "Toekn invalid or expired" });
+      } else {
+        next();
+      }
+    });
+  } catch (error) {
+    response.status(401).send({ message: "Token invalid or expired" });
   }
-  console.log("Authentcating the request");
 }
 
-module.exports = authenticateRequest;
+// module.exports = authenticateRequest;
+module.exports.authenticateRequest = authenticateRequest;

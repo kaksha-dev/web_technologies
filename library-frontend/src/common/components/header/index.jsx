@@ -4,23 +4,29 @@ import { Link } from 'react-router-dom';
 import Button from './../button';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserAuthenticated as setUserAuthenticatedRedux } from './../../../redux/actions';
+import { logoutActions } from './../../../common/utils/utils';
 
 const Header = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const isAuthenticated = useSelector(
-        (state) => state.userReducer.isAuthenticated
-    );
+    const isAuthenticated =
+        useSelector((state) => state.userReducer.isAuthenticated) ||
+        localStorage.getItem('isAuthenticated');
+
+    const userDetails = useSelector((state) => state.userReducer.userDetails);
 
     const handleLogout = (event) => {
         event.preventDefault();
 
+        logoutActions(dispatch);
+
         // Make api call to logout
         // if request pass then remove the variable
-        localStorage.removeItem('isAuthenticated');
+        // localStorage.removeItem('isAuthenticated');
+        // localStorage.removeItem('token');
         // history.push('/login');
-        dispatch(setUserAuthenticatedRedux(false));
+        // dispatch(setUserAuthenticatedRedux(false));
     };
     return (
         <>
@@ -71,14 +77,27 @@ const Header = () => {
                         </ul>
                         {isAuthenticated ? (
                             <>
-                                <span>Welcome user</span>
+                                <span>Welcome {userDetails.name}</span> &nbsp;
                                 <Button
                                     label="LOGOUT"
                                     clickHandler={handleLogout}
                                 />
                             </>
                         ) : (
-                            <Button label="LOGIN" clickHandler={() => {}} />
+                            <>
+                                <Button
+                                    label="LOGIN"
+                                    clickHandler={() => {
+                                        history.push('/login');
+                                    }}
+                                />
+                                <Button
+                                    label="REGISTER"
+                                    clickHandler={() => {
+                                        history.push('/register');
+                                    }}
+                                />
+                            </>
                         )}
                     </div>
                 </div>

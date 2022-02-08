@@ -27,12 +27,20 @@ const Home = () => {
         fetch('http://localhost:3001/books', {
             method: 'GET',
             headers: {
-                token: true,
+                token: localStorage.getItem('token'),
             },
         })
             .then((response) => {
                 setBooksDataLoading(false);
-                return response.json();
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    return [];
+                }
+            })
+            .catch((error) => {
+                // setBooks([]);
+                console(alert('Some error occured while fetching the data'));
             })
             .then((data) => {
                 // books = data;

@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 
+// For multiple connections
+const dbConnections = require("./../config/dbconnection");
+
+/**
+ * Create the schema
+ */
 const booksSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -24,7 +30,9 @@ const booksSchema = new mongoose.Schema({
  * Create the collection and returns it's  reference.
  * If collection already exists, directly return the refernce
  */
-const BooksModel = mongoose.model("books", booksSchema);
+// const BooksModel = mongoose.model("books", booksSchema);
+// For multiple connections
+const BooksModel = dbConnections.libraryConnection.model("books", booksSchema);
 
 BooksModel.getBooks = function (request, callBack) {
   BooksModel.find({}, callBack);

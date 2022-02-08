@@ -2,6 +2,7 @@ import {
     SET_BOOKS_LIST,
     SET_SELECTED_BOOK,
     SET_USER_AUTHENTICATED,
+    SET_USER_DETAILS,
 } from './actions';
 
 const initialBooksState = {
@@ -11,7 +12,7 @@ const initialBooksState = {
 
 const initialUserState = {
     isAuthenticated: false,
-    username: '',
+    userDetails: {},
 };
 
 export const booksReducer = (state = initialBooksState, action) => {
@@ -29,6 +30,8 @@ export const userReducer = (state = initialUserState, action) => {
     switch (action.type) {
         case SET_USER_AUTHENTICATED:
             return { ...state, isAuthenticated: action.payload };
+        case SET_USER_DETAILS:
+            return { ...state, userDetails: action.payload };
         default:
             return { ...state };
     }
