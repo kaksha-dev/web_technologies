@@ -1,0 +1,18 @@
+#root {
+  color: darkslategray;
+}
+
+.center {
+  text-align: center;
+}
+
+table,
+th,
+td {
+  border: solid 2px black;
+  text-align: center;
+}
+
+#grid {
+  margin: 50px 50px 50px 40%;
+}
