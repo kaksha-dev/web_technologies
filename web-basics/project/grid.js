@@ -1,3 +1,4 @@
+const maxMarks = 3000;
 // convert object to funcation
 var student = function (name, obtainedMarks) {
   this.name = name;
@@ -24,6 +25,7 @@ function getAllRows(students) {
         <tr>
         <td>${item.name}</td>
         <td>${item.obtainedMarks}</td>
+        <td>${item.checkResult().toUpperCase()}</td>
       </tr>`;
   });
   return dataRows;
@@ -42,6 +44,7 @@ function renderData(studentsData) {
   <tr>
     <th>Name</th>
     <th onclick="sort()">Obtained Marks</th>
+    <th>Result</th>
   </tr>
   ${getAllRows(studentsData)}
 </table>`;
