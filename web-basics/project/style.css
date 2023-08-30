@@ -6,11 +6,40 @@
   text-align: center;
 }
 
-table,
-th,
-td {
-  border: solid 2px black;
-  text-align: center;
+/* .bold {
+  font-weight: 900;
+} */
+
+#bold {
+  font-weight: 900;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+p[value="20"] {
+  background-color: green;
+}
+
+input[type="date"] {
+  background-color: green;
+}
+
+td,
+th {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  padding: 10px;
+}
+
+td,
+th {
+  border-style: dotted;
+  border-color: black;
+  border-width: 1px;
+  padding: 10px;
 }
 
 #grid {

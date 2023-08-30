@@ -1,5 +1,5 @@
-const maxMarks = 3000;
-// convert object to funcation
+// convert object to function
+var maxMarks = 3000;
 var student = function (name, obtainedMarks) {
   this.name = name;
   this.obtainedMarks = obtainedMarks;
@@ -25,14 +25,13 @@ function getAllRows(students) {
         <tr>
         <td>${item.name}</td>
         <td>${item.obtainedMarks}</td>
-        <td>${item.checkResult().toUpperCase()}</td>
+        <td id="bold">${item.checkResult().toUpperCase()}</td>
       </tr>`;
   });
   return dataRows;
 }
 
 function sort() {
-  console.log("Sorting");
   var sortedStudents = students.sort(
     (a, b) => a.obtainedMarks - b.obtainedMarks
   );
