@@ -17,6 +17,7 @@ let students = [
   new student("First Name2", 6100),
   new student("First Name3", 900),
   new student("First Name4", 2500),
+  new student("First Name5", 300),
 ];
 
 function getAllRows(students) {
@@ -28,7 +29,7 @@ function getAllRows(students) {
         <td id="bold">${item.checkResult().toUpperCase()}</td>
       </tr>`;
   });
-  return dataRows;
+  return dataRows.join("");
 }
 
 function sort() {
@@ -50,3 +51,7 @@ function renderData(studentsData) {
 }
 
 renderData(students);
+
+const gotoResponsivePage = () => {
+  window.location.href = "/responsive.html?a=true";
+};

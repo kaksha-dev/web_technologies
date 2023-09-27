@@ -1,6 +1,8 @@
 const http = require("http");
 const fs = require("fs");
 
+const getContentType = function () {};
+
 const listener = function (req, res) {
   console.log("listener is called with path", req.url);
   if (req.url === "/") {
@@ -12,8 +14,17 @@ const listener = function (req, res) {
         res.end(data);
       }
     });
-  } else if (req.url === "/style.css") {
-    fs.readFile("style.css", (error, data) => {
+  } else if (req.url.includes(".html")) {
+    fs.readFile(`.${req.url}`, (error, data) => {
+      if (data) {
+        res.writeHead(201, {
+          "Content-Type": "text/html",
+        });
+        res.end(data);
+      }
+    });
+  } else if (req.url.includes(".css")) {
+    fs.readFile(`.${req.url}`, (error, data) => {
       if (data) {
         res.writeHead(201, {
           "Content-Type": "text/css",

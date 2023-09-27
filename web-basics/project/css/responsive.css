@@ -1,0 +1,27 @@
+:root {
+  --background-color: lightgrey;
+}
+
+body {
+  background-color: var(--background-color);
+  box-sizing: border-box;
+  --font-size: 20px;
+}
+
+@media screen and (min-width: 576px) {
+  body {
+    background-color: yellow;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  body {
+    --background-color: green;
+    background-color: var(--background-color);
+  }
+}
+
+.productborder {
+  background-color: bisque;
+  border: 2px solid black;
+}

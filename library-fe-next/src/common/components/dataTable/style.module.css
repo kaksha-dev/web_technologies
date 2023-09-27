@@ -1,0 +1,22 @@
+.table {
+  border-collapse: collapse;
+}
+
+/* td,
+th {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  padding: 10px;
+} */
+
+.border {
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  padding: 10px;
+}
+
+.border-collapse {
+  border-collapse: collapse;
+}
