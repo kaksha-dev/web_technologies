@@ -1,5 +1,6 @@
 // convert object to function
 var maxMarks = 3000;
+
 var student = function (name, obtainedMarks) {
   this.name = name;
   this.obtainedMarks = obtainedMarks;
@@ -55,3 +56,45 @@ renderData(students);
 const gotoResponsivePage = () => {
   window.location.href = "/responsive.html?a=true";
 };
+
+let promise1 = new Promise(executor);
+
+function executor(resolve, reject) {
+  setTimeout(() => {
+    reject("success value");
+  }, 10000);
+}
+
+let promise2 = new Promise((resolve, reject) => {
+  console.log("Promise executor is called");
+  setTimeout(() => {
+    console("Inside timoeut");
+    reject("error value");
+  }, 2000);
+
+  // fech data from backend
+});
+
+promise2.then((value) => {
+  console.log("Promise resolved with value as: ", value);
+  console.log("Promise value: ", promise2);
+});
+
+let promise3 = await new Promise((resolve, reject) => {
+  console.log("Promise executor is called");
+  setTimeout(() => {
+    resolve("error value");
+  }, 2000);
+});
+
+promise3.then((value) => {
+  console.log("Promise resolved with value as: ", value);
+  console.log("Promise value: ", promise2);
+});
+
+// Initial Values
+// State: pending, value: undefined
+// if resolve is called
+// State: fulfilled, value: retunValue
+// if reject is called
+// State: rejected, value: returnErrorValue

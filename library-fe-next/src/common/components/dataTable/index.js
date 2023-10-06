@@ -18,7 +18,9 @@ function DataTable({ data, maxSize }) {
             <Link href="/addbook" className="btn btn-primary">
               Add
             </Link>
-            <Button type="success">Edit</Button>
+            <Link href="/editbook" className="btn btn-secondary">
+              Edit
+            </Link>
           </td>
         </tr>
       );

@@ -17,20 +17,27 @@ function HomePage() {
   }, []);
 
   const fetchData = () => {
-    fetch("http://localhost:3001/books")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setBooks(data);
-        console.log("The books data is: ", books);
-      });
+    fetch("http://localhost:3001/books").then(
+      async (response) => {
+        try {
+          let booksData = await response.json();
+          setBooks(booksData);
+        } catch (error) {}
+      },
+      (error) => {
+        alert("Some error occured while fetching data");
+      }
+    );
   };
 
   return (
     <div className="container">
       <Navbar />
-      <DataTable data={books} maxSize={10}></DataTable>
+      <DataTable
+        data={books}
+        maxSize={10}
+        // onAddBook={addbookHandler}
+      ></DataTable>
     </div>
   );
 }
