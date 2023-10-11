@@ -1,7 +1,21 @@
 {
-  "posts": [{ "id": 1, "title": "json-server", "author": "typicode" }],
-  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
-  "profile": { "name": "typicode" },
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
   "books": [
     {
       "id": 1,
@@ -16,10 +30,28 @@
       "title": "UCA Web Technologies"
     },
     {
-      "id": 3,
-      "name": "Book3Name",
+      "name": "Book3NameUpdated",
       "author": "Book3Author",
-      "title": "UCA Web Technologies"
+      "title": "UCA Web Technologies",
+      "id": 3
+    },
+    {
+      "name": "Book4Name",
+      "author": "Book4Author",
+      "title": "Book 4 -  UCA Web Technologies",
+      "id": 4
+    },
+    {
+      "name": "Book5Name",
+      "author": "Author5Name",
+      "title": "Book5Title",
+      "id": 5
+    },
+    {
+      "name": "Book6Name",
+      "author": "Book6Author",
+      "title": "Book6Title",
+      "id": 6
     }
   ]
 }

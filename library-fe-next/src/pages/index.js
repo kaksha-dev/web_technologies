@@ -1,5 +1,4 @@
 import DataTable from "@/common/components/dataTable";
-import Navbar from "@/common/components/Navbar";
 import "@nodemodules/bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 
@@ -32,7 +31,6 @@ function HomePage() {
 
   return (
     <div className="container">
-      <Navbar />
       <DataTable
         data={books}
         maxSize={10}

@@ -1,11 +1,13 @@
+import Link from "next/link";
+
 function Navbar() {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Navbar
-          </a>
+          <Link href="/" className="btn btn-secondary">
+            <h1>UL</h1>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
