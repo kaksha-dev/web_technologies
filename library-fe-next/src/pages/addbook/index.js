@@ -1,7 +1,12 @@
+import UAlert from "@/common/components/alert";
 import UInput from "@/common/components/uInput";
+import { useState } from "react";
 
 function AddBook() {
+  const [showAlert, setShowAlert] = useState(false);
+
   const handleSubmit = (event) => {
+    event.preventDefault();
     const newbook = {
       name: event.currentTarget.name.value,
       author: event.currentTarget.author.value,
@@ -17,7 +22,7 @@ function AddBook() {
       (response) => {
         debugger;
         if (response.ok) {
-          alert("Books added succesfully");
+          setShowAlert(true);
         }
       },
       (error) => {}
@@ -25,8 +30,17 @@ function AddBook() {
     debugger;
   };
 
+  const toggleAlert = (value) => {
+    setShowAlert(value);
+  };
+
   return (
     <>
+      <UAlert
+        message="Book added successfully"
+        show={showAlert}
+        toggleAlert={toggleAlert}
+      />
       <form onSubmit={handleSubmit}>
         <UInput
           id="name"
