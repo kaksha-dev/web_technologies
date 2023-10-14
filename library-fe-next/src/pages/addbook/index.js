@@ -1,5 +1,6 @@
 import UAlert from "@/common/components/alert";
 import UInput from "@/common/components/uInput";
+import UButton from "@/common/components/ubutton";
 import { useState } from "react";
 
 function AddBook() {
@@ -60,8 +61,10 @@ function AddBook() {
           label="Book Title"
           type="text"
         />
-        <div>
-          <input type="submit"></input>
+        <div style={{ textAlign: "center", margin: "20px 0" }}>
+          <UButton type="submit" variant="primary">
+            Submit
+          </UButton>
         </div>
       </form>
     </>

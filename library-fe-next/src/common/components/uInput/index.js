@@ -1,6 +1,6 @@
 import style from "./style.module.css";
 
-function UInput({ id, label, placeholder, type, value }) {
+function UInput({ id, label, placeholder, type, defaultValue }) {
   return (
     <>
       <label htmlFor={id} className={style["label"]}>
@@ -11,7 +11,7 @@ function UInput({ id, label, placeholder, type, value }) {
         placeholder={placeholder}
         id={id}
         name={id}
-        value={value}
+        defaultValue={defaultValue}
       ></input>
     </>
   );

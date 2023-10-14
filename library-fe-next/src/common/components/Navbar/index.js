@@ -6,7 +6,7 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <Link href="/" className="btn btn-secondary">
-            <h1>UL</h1>
+            <h4>UL</h4>
           </Link>
           <button
             className="navbar-toggler"
@@ -27,9 +27,9 @@ function Navbar() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Link
-                </a>
+                <Link href="/addbook" className="btn btn-light">
+                  Add New Book
+                </Link>
               </li>
               <li className="nav-item dropdown">
                 <a

@@ -1,9 +1,12 @@
 import DataTable from "@/common/components/dataTable";
 import "@nodemodules/bootstrap/dist/css/bootstrap.min.css";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
 function HomePage() {
   const [books, setBooks] = useState([]);
+  const router = useRouter();
   // let name = "Vaibhav";
   // const books = [
   //   { name: "Book1Name", author: "Book1Author", title: "UCA Web Technologies" },
@@ -29,13 +32,21 @@ function HomePage() {
     );
   };
 
+  const editAction = (selectedBook) => {
+    console.log("The selected data is : ", selectedBook);
+    router.push({ pathname: "/editbook", query: selectedBook }, "/editbook");
+    // router.push("/editbook");
+  };
+
   return (
     <div className="container">
       <DataTable
         data={books}
         maxSize={10}
+        editAction={editAction}
         // onAddBook={addbookHandler}
       ></DataTable>
+      <div style={{ margin: "20px", paddingLeft: "300px" }}></div>
     </div>
   );
 }
