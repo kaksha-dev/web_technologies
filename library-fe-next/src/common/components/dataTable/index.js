@@ -1,8 +1,7 @@
 import UButton from "@/common/components/ubutton";
 import style from "./style.module.css";
-import Link from "next/link";
 
-function DataTable({ data, maxSize, editAction }) {
+function DataTable({ data = [], maxSize, editAction, deleteAction }) {
   // console.log("The data to be used is: ", data);
   // console.log("The max size to be used is: ", maxSize);
 
@@ -39,18 +38,30 @@ function DataTable({ data, maxSize, editAction }) {
     });
   };
   return (
-    <table className={style["table"]}>
-      <thead>
-        <tr>
-          <th className={style["border"]}>Sr. No.</th>
-          <th className={style["border"]}>Name</th>
-          <th className={style["border"]}>Author</th>
-          <th className={style["border"]}>Title</th>
-          <th className={style["border"]}>Actions</th>
-        </tr>
-      </thead>
-      <tbody>{getRowsData()}</tbody>
-    </table>
+    <div className={style["table-container"]}>
+      {data.length > 0 ? (
+        <table className={style["table"]}>
+          <thead>
+            <tr>
+              <th className={style["border"]}>Sr. No.</th>
+              <th className={style["border"]}>Name</th>
+              <th className={style["border"]}>Author</th>
+              <th className={style["border"]}>Title</th>
+              <th className={style["border"]}>Actions</th>
+            </tr>
+          </thead>
+          <tbody>{getRowsData()}</tbody>
+        </table>
+      ) : (
+        <table>
+          <tbody>
+            <tr>
+              <td>No books data</td>
+            </tr>
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 }
 
