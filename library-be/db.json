@@ -1,0 +1,29 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "name": "Book1Name",
+      "author": "Book1Author",
+      "title": "UCA Web Technologies"
+    },
+    {
+      "id": 2,
+      "name": "Book2Name",
+      "author": "Book2Author",
+      "title": "UCA Web Technologies"
+    },
+    {
+      "id": 3,
+      "name": "Book5Name",
+      "author": "Book5Author",
+      "title": "UCA Web Technologies 5"
+    },
+    {
+      "id": 4,
+      "name": "Book4Name",
+      "author": "Book4Author",
+      "title": "UCA Web Technologies 4"
+    }
+  ],
+  "users": []
+}
