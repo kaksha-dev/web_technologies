@@ -26,7 +26,7 @@ function HomePage() {
   }, []);
 
   const fetchData = () => {
-    fetch("http://localhost:3001/books").then(
+    fetch("http://localhost:8080/books").then(
       async (response) => {
         try {
           let booksData = await response.json();
@@ -53,7 +53,7 @@ function HomePage() {
 
   const deleteBook = () => {
     // Delete the data from backend
-    fetch(`http://localhost:3001/books/${selectedBook.id}`, {
+    fetch(`http://localhost:8080/books/${selectedBook.id}`, {
       method: "DELETE",
     }).then(
       (response) => {

@@ -13,7 +13,7 @@ function AddBook() {
       author: event.currentTarget.author.value,
       title: event.currentTarget.title.value,
     };
-    fetch("http://localhost:3001/books", {
+    fetch("http://localhost:8080/books", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,14 +21,12 @@ function AddBook() {
       body: JSON.stringify(newbook),
     }).then(
       (response) => {
-        debugger;
         if (response.ok) {
           setShowAlert(true);
         }
       },
       (error) => {}
     );
-    debugger;
   };
 
   const toggleAlert = (value) => {

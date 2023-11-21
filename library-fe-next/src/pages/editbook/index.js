@@ -18,7 +18,7 @@ function EditBook() {
       title: event.currentTarget.title.value,
     };
 
-    fetch(`http://localhost:3001/books/${selectedBook.id}`, {
+    fetch(`http://localhost:8080/books/${selectedBook.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
