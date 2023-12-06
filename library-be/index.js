@@ -2,48 +2,115 @@ var express = require("express");
 var fileSystem = require("fs");
 var app = express();
 
-var port = 8080;
+require("./config/dbConnection");
+const { BooksModel } = require("./models/books");
 var dbPath = "./db.json";
+
+var port = 8080;
 
 app.use(express.json());
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", req.get("origin"));
+  // res.setHeader("Access-Control-Allow-Origin", req.get("origin"));
   res.setHeader("Access-Control-Allow-Headers", "content-type");
   res.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
   next();
 });
 
 app.get("/books", (req, res) => {
-  try {
-    var dbRawData = fileSystem.readFileSync(dbPath);
-    var dbParsedData = JSON.parse(dbRawData);
-    res.status(200);
-    res.send(dbParsedData.books);
-  } catch (error) {
-    res.status(500);
-    res.send({ message: "Any unknown error occured, please try again later" });
-  }
+  BooksModel.find()
+    .then(
+      (dbRes) => {
+        res.send(dbRes);
+      },
+      (dbErr) => {
+        res.status(400);
+        res.send({ message: "Bad request" });
+      }
+    )
+    .catch((dbErr) => {
+      console.log("The catch error is: ", dbErr);
+      res.status(500);
+      res.send({
+        message: "An unknown error occured, please try again later",
+        error: dbErr,
+      });
+    });
+});
+
+app.get("/books/:reqBookId", async (req, res) => {
+  let reqBookId = req.params.reqBookId;
+  BooksModel.findById(reqBookId)
+    .then(
+      (dbRes) => {
+        res.send(dbRes);
+      },
+      (dbErr) => {
+        res.status(400);
+        res.send({ message: "Bad request" });
+      }
+    )
+    .catch((dbErr) => {
+      res.status(500);
+      res.send({
+        message: "An unknown error occured, please try again later",
+        error: dbErr,
+      });
+    });
 });
 
 app.post("/books", (req, res) => {
   let newBook = req.body;
 
-  try {
-    var dbRawData = fileSystem.readFileSync(dbPath);
-    var dbParsedData = JSON.parse(dbRawData);
-    dbParsedData.books.push({
-      id: Math.floor(Math.random() * 100000),
-      ...newBook,
+  BooksModel.insertMany([newBook])
+    .then(
+      (dbRes) => {
+        res.send(dbRes);
+      },
+      (dbErr) => {
+        res.status(400);
+        res.send({ message: "Bad request", error: dbErr });
+      }
+    )
+    .catch((dbErr) => {
+      res.status(500);
+      res.send({
+        message: "An unknown error occured, please try again later",
+        error: dbErr,
+      });
     });
-    fileSystem.writeFileSync(dbPath, JSON.stringify(dbParsedData, null, 2));
-    res.status(201);
-    res.send({ message: "Book created succesfully" });
-  } catch (error) {
-    res.status(500);
-    res.send({ message: "An unknown error occured, please try again later" });
-  }
 });
+
+// app.get("/books", (req, res) => {
+//   try {
+//     var dbRawData = fileSystem.readFileSync(dbPath);
+//     var dbParsedData = JSON.parse(dbRawData);
+//     res.status(200);
+//     res.send(dbParsedData.books);
+//   } catch (error) {
+//     res.status(500);
+//     res.send({ message: "An unknown error occured, please try again later" });
+//   }
+// });
+
+// app.post("/books", (req, res) => {
+//   let newBook = req.body;
+
+//   try {
+//     var dbRawData = fileSystem.readFileSync(dbPath);
+//     var dbParsedData = JSON.parse(dbRawData);
+//     dbParsedData.books.push({
+//       id: Math.floor(Math.random() * 100000),
+//       ...newBook,
+//     });
+//     fileSystem.writeFileSync(dbPath, JSON.stringify(dbParsedData, null, 2));
+//     res.status(201);
+//     res.send({ message: "Book created succesfully" });
+//   } catch (error) {
+//     res.status(500);
+//     res.send({ message: "An unknown error occured, please try again later" });
+//   }
+// });
 
 app.put("/books/:reqBookId", (req, res) => {
   let reqBookId = req.params.reqBookId;
