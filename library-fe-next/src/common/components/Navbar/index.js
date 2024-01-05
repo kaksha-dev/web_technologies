@@ -1,4 +1,5 @@
 import Link from "next/link";
+import UButton from "../ubutton";
 
 function Navbar() {
   return (
@@ -79,6 +80,14 @@ function Navbar() {
                 Search
               </button>
             </form>
+            <UButton variant="primary">
+              <Link
+                href="/signup"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Register
+              </Link>
+            </UButton>
           </div>
         </div>
       </nav>

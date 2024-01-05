@@ -1,3 +1,3 @@
 {
-  "dbPath": "mongodb://127.0.0.1:27017/ucacollegelib"
+  "dbPath": "mongodb+srv://vaibhav:vaibhav@cluster0.wmvzomb.mongodb.net/ucacollegelib?retryWrites=true&w=majority"
 }
