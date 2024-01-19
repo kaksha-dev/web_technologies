@@ -1,3 +1,4 @@
 {
-  "dbPath": "mongodb+srv://vaibhav:vaibhav@cluster0.wmvzomb.mongodb.net/ucacollegelib?retryWrites=true&w=majority"
+  "dbPath": "mongodb+srv://vaibhav:vaibhav@cluster0.wmvzomb.mongodb.net/ucacollegelib?retryWrites=true&w=majority",
+  "jwtsecret": "ucasecret"
 }

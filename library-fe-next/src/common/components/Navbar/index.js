@@ -82,6 +82,14 @@ function Navbar() {
             </form>
             <UButton variant="primary">
               <Link
+                href="/login"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Login
+              </Link>
+            </UButton>
+            <UButton variant="primary">
+              <Link
                 href="/signup"
                 style={{ color: "white", textDecoration: "none" }}
               >

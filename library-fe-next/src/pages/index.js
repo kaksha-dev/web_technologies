@@ -26,7 +26,12 @@ function HomePage() {
   }, []);
 
   const fetchData = () => {
-    fetch("http://localhost:8080/books").then(
+    fetch("http://localhost:8080/books", {
+      method: "GET",
+      headers: {
+        Authorization: localStorage.getItem("authToken"),
+      },
+    }).then(
       async (response) => {
         try {
           let booksData = await response.json();

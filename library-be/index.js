@@ -4,6 +4,7 @@ var app = express();
 require("./config/dbConnection");
 const booksRoute = require("./routes/books");
 const usersRoute = require("./routes/users");
+const { validateJWTToken } = require("./utils/helpers");
 
 var port = 8080;
 
@@ -12,14 +13,21 @@ app.use(express.json());
 app.use((req, res, next) => {
   const allowedOrigins = req.get("origin") || "http://localhost:3000";
   res.setHeader("Access-Control-Allow-Origin", allowedOrigins);
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-  next();
+  res.setHeader("Access-Control-Allow-Headers", "content-type, authorization");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, PUT, POST, DELETE, OPTIONS"
+  );
+  if (req.method === "OPTIONS") {
+    res.send("ok");
+  } else {
+    next();
+  }
 });
 
+// Authentication Middleware
 app.use("/books", (req, res, next) => {
-  console.log("Middleware is called");
-  next();
+  validateJWTToken(req, res, next);
 });
 
 app.use("/books", booksRoute);

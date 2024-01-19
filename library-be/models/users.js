@@ -38,4 +38,19 @@ UsersModel.addNewUser = (newUser, successCallBack, errorCallBack, res) => {
     });
 };
 
+UsersModel.login = (useremail, successCallBack, errorCallBack, res) => {
+  UsersModel.findOne({ email: useremail })
+    .then(
+      (dbRes) => {
+        successCallBack(dbRes);
+      },
+      (dbErr) => {
+        errorCallBack(dbErr);
+      }
+    )
+    .catch((error) => {
+      exceptionHandler(res, error);
+    });
+};
+
 module.exports = { UsersModel };
