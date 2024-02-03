@@ -1,4 +1,5 @@
 import UAlert from "@/common/components/alert";
+import AuthGuard from "@/common/components/authGuard";
 import UInput from "@/common/components/uInput";
 import UButton from "@/common/components/ubutton";
 import { useState } from "react";
@@ -34,7 +35,7 @@ function AddBook() {
   };
 
   return (
-    <>
+    <AuthGuard>
       <UAlert
         message="Book added successfully"
         show={showAlert}
@@ -65,7 +66,7 @@ function AddBook() {
           </UButton>
         </div>
       </form>
-    </>
+    </AuthGuard>
   );
 }
 

@@ -1,4 +1,5 @@
 import UAlert from "@/common/components/alert";
+import AuthGuard from "@/common/components/authGuard";
 import UInput from "@/common/components/uInput";
 import UButton from "@/common/components/ubutton";
 import { useRouter } from "next/router";
@@ -18,10 +19,11 @@ function EditBook() {
       title: event.currentTarget.title.value,
     };
 
-    fetch(`http://localhost:8080/books/${selectedBook.id}`, {
+    fetch(`http://localhost:8080/books/${selectedBook._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: localStorage.getItem("authToken"),
       },
       body: JSON.stringify(updatedBook),
     }).then(
@@ -42,44 +44,46 @@ function EditBook() {
   };
 
   return (
-    <>
-      <UAlert
-        message="Book updated successfully"
-        show={showAlert}
-        toggleAlert={toggleAlert}
-      />
-      <form onSubmit={handleSubmit}>
-        <UInput
-          id="name"
-          placeholder="Enter Book Name"
-          label="Book Name"
-          type="text"
-          defaultValue={selectedBook?.name}
+    <AuthGuard>
+      <div>
+        <UAlert
+          message="Book updated successfully"
+          show={showAlert}
+          toggleAlert={toggleAlert}
         />
-        <UInput
-          id="author"
-          placeholder="Enter Author Name"
-          label="Author Name"
-          type="text"
-          defaultValue={selectedBook?.author}
-        />
-        <UInput
-          id="title"
-          placeholder="Enter Book Title"
-          label="Book Title"
-          type="text"
-          defaultValue={selectedBook?.title}
-        />
-        <div style={{ textAlign: "center", margin: "20px 0" }}>
-          <UButton type="submit" variant="primary">
-            Submit
-          </UButton>
-          <UButton type="reset" variant="secondary">
-            Reset
-          </UButton>
-        </div>
-      </form>
-    </>
+        <form onSubmit={handleSubmit}>
+          <UInput
+            id="name"
+            placeholder="Enter Book Name"
+            label="Book Name"
+            type="text"
+            defaultValue={selectedBook?.name}
+          />
+          <UInput
+            id="author"
+            placeholder="Enter Author Name"
+            label="Author Name"
+            type="text"
+            defaultValue={selectedBook?.author}
+          />
+          <UInput
+            id="title"
+            placeholder="Enter Book Title"
+            label="Book Title"
+            type="text"
+            defaultValue={selectedBook?.title}
+          />
+          <div style={{ textAlign: "center", margin: "20px 0" }}>
+            <UButton type="submit" variant="primary">
+              Submit
+            </UButton>
+            <UButton type="reset" variant="secondary">
+              Reset
+            </UButton>
+          </div>
+        </form>
+      </div>
+    </AuthGuard>
   );
 }
 

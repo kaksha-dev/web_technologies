@@ -1,7 +1,17 @@
 import Link from "next/link";
 import UButton from "../ubutton";
+import { checkIsUserLoggedIn, logout } from "@/utils/helpers";
+import { useEffect, useState } from "react";
 
 function Navbar() {
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (checkIsUserLoggedIn()) {
+      setIsUserLoggedIn(true);
+    }
+  }, []);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -80,22 +90,31 @@ function Navbar() {
                 Search
               </button>
             </form>
-            <UButton variant="primary">
-              <Link
-                href="/login"
-                style={{ color: "white", textDecoration: "none" }}
-              >
-                Login
-              </Link>
-            </UButton>
-            <UButton variant="primary">
-              <Link
-                href="/signup"
-                style={{ color: "white", textDecoration: "none" }}
-              >
-                Register
-              </Link>
-            </UButton>
+            {!isUserLoggedIn && (
+              <UButton variant="primary">
+                <Link
+                  href="/login"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Login
+                </Link>
+              </UButton>
+            )}
+            {!isUserLoggedIn && (
+              <UButton variant="primary">
+                <Link
+                  href="/signup"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  Register
+                </Link>
+              </UButton>
+            )}
+            {isUserLoggedIn && (
+              <UButton variant="primary" onClick={logout}>
+                Logout
+              </UButton>
+            )}
           </div>
         </div>
       </nav>

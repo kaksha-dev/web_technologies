@@ -4,7 +4,6 @@ var app = express();
 require("./config/dbConnection");
 const booksRoute = require("./routes/books");
 const usersRoute = require("./routes/users");
-const { validateJWTToken } = require("./utils/helpers");
 
 var port = 8080;
 
@@ -23,11 +22,6 @@ app.use((req, res, next) => {
   } else {
     next();
   }
-});
-
-// Authentication Middleware
-app.use("/books", (req, res, next) => {
-  validateJWTToken(req, res, next);
 });
 
 app.use("/books", booksRoute);

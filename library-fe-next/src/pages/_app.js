@@ -5,7 +5,11 @@ function App({ Component }) {
   return (
     <>
       <Navbar></Navbar>
-      <Component></Component>
+      <div className="container">
+        <div className="col">
+          <Component></Component>
+        </div>
+      </div>
     </>
   );
 }

@@ -25,6 +25,7 @@ function Login() {
           setShowAlert(true);
           const responseData = await response.json();
           localStorage.setItem("authToken", responseData?.data?.access_token);
+          window.location.href = "/";
         }
       },
       (error) => {}
