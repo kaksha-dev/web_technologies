@@ -1,17 +1,35 @@
 import Link from "next/link";
 import UButton from "../ubutton";
-import { checkIsUserLoggedIn, logout } from "@/utils/helpers";
+import { logout } from "@/utils/helpers";
+import useIsUserLoggedIn from "@/common/hooks/useIsUserLoggedIn";
 import { useEffect, useState } from "react";
 
 function Navbar() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const isUserLoggedIn = useIsUserLoggedIn();
+  const [userDetails, setUserDetails] = useState({});
 
   useEffect(() => {
-    if (checkIsUserLoggedIn()) {
-      setIsUserLoggedIn(true);
+    if (isUserLoggedIn) {
+      fetchUserDetails();
     }
-  }, []);
+  }, [isUserLoggedIn]);
 
+  const fetchUserDetails = () => {
+    fetch("http://localhost:8080/users/profile", {
+      method: "GET",
+      headers: {
+        Authorization: localStorage.getItem("authToken"),
+      },
+    }).then(
+      async (res) => {
+        if (res.ok) {
+          let user = await res.json();
+          setUserDetails(user);
+        }
+      },
+      (err) => {}
+    );
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -79,17 +97,7 @@ function Navbar() {
                 </a>
               </li>
             </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
+            {isUserLoggedIn && <div>Welcome {userDetails.firstName}</div>}
             {!isUserLoggedIn && (
               <UButton variant="primary">
                 <Link

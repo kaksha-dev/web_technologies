@@ -4,6 +4,10 @@ const { UsersModel } = require("./../models/users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("./../config/config.json");
+const {
+  validateJWTToken,
+  validateEmailFromJWTToken,
+} = require("../utils/helpers");
 
 router.post("", (req, res) => {
   let newUser = req.body;
@@ -60,5 +64,14 @@ router.post("/login", (req, res) => {
     res
   );
 });
+
+router.get(
+  "/profile",
+  validateJWTToken,
+  validateEmailFromJWTToken,
+  (req, res) => {
+    res.send(req.userDetail);
+  }
+);
 
 module.exports = router;

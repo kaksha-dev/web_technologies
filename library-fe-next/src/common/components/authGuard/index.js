@@ -1,14 +1,8 @@
-import { checkIsUserLoggedIn } from "@/utils/helpers";
+import useIsUserLoggedIn from "@/common/hooks/useIsUserLoggedIn";
 import Link from "next/link";
-import { useState } from "react";
 
 function AuthGuard({ children }) {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  useEffect(() => {
-    if (checkIsUserLoggedIn()) {
-      setIsUserLoggedIn(true);
-    }
-  }, []);
+  const isUserLoggedIn = useIsUserLoggedIn();
 
   return (
     <>

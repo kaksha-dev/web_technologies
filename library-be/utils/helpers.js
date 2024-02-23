@@ -41,6 +41,7 @@ const validateEmailFromJWTToken = (req, res, next) => {
     userEmail,
     (dbRes) => {
       if (dbRes?.email) {
+        req.userDetail = dbRes;
         next();
       } else {
         res.status(403);
