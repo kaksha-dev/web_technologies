@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import UButton from "../ubutton";
 import { logout } from "@/utils/helpers";

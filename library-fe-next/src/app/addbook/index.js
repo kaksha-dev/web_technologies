@@ -1,3 +1,4 @@
+"use client";
 import UAlert from "@/common/components/alert";
 import AuthGuard from "@/common/components/authGuard";
 import UInput from "@/common/components/uInput";

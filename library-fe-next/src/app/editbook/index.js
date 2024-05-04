@@ -1,8 +1,10 @@
+"use client";
+
 import UAlert from "@/common/components/alert";
 import AuthGuard from "@/common/components/authGuard";
 import UInput from "@/common/components/uInput";
 import UButton from "@/common/components/ubutton";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 function EditBook() {

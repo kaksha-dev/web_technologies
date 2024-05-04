@@ -1,3 +1,4 @@
+"use client";
 import UInput from "@/common/components/uInput";
 import UButton from "@/common/components/ubutton";
 import style from "./style.module.css";

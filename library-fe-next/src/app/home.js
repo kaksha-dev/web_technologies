@@ -1,8 +1,9 @@
+"use client";
+
 import UAlert from "@/common/components/alert";
 import DataTable from "@/common/components/dataTable";
 import UModal from "@/common/components/uModal";
-import "@nodemodules/bootstrap/dist/css/bootstrap.min.css";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 function HomePage() {
@@ -46,7 +47,8 @@ function HomePage() {
 
   const editAction = (selectedBook) => {
     console.log("The selected data is : ", selectedBook);
-    router.push({ pathname: "/editbook", query: selectedBook }, "/editbook");
+    // router.push({ pathname: "/editbook", query: selectedBook }, "/editbook");
+    router.push("/editbook");
     // router.push("/editbook");
   };
 
