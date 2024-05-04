@@ -3,16 +3,23 @@
 import UAlert from "@/common/components/alert";
 import DataTable from "@/common/components/dataTable";
 import UModal from "@/common/components/uModal";
+import { setBooksData, setBooksCount } from "@/redux/feature/books/slice";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-function HomePage() {
-  const [books, setBooks] = useState([]);
+function Home() {
+  const dispatch = useDispatch();
+
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
     useState(false);
   const [selectedBook, setSelectedBook] = useState({});
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+
+  const booksDataFromRedux = useSelector((state) => {
+    return state.books.booksData;
+  });
 
   const router = useRouter();
   // let name = "Vaibhav";
@@ -36,7 +43,8 @@ function HomePage() {
       async (response) => {
         try {
           let booksData = await response.json();
-          setBooks(booksData);
+          dispatch(setBooksData(booksData));
+          dispatch(setBooksCount(booksData?.length));
         } catch (error) {}
       },
       (error) => {
@@ -46,10 +54,7 @@ function HomePage() {
   };
 
   const editAction = (selectedBook) => {
-    console.log("The selected data is : ", selectedBook);
-    // router.push({ pathname: "/editbook", query: selectedBook }, "/editbook");
-    router.push("/editbook");
-    // router.push("/editbook");
+    router.push(`/editbook?id=${selectedBook._id}`, {});
   };
 
   const deleteAction = (selectedBook) => {
@@ -93,7 +98,7 @@ function HomePage() {
         toggleAlert={() => setShowAlert(!showAlert)}
       />
       <DataTable
-        data={books}
+        data={booksDataFromRedux}
         maxSize={10}
         editAction={editAction}
         // onAddBook={addbookHandler}
@@ -113,4 +118,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Home;

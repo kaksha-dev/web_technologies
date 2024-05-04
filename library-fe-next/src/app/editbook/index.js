@@ -4,15 +4,30 @@ import UAlert from "@/common/components/alert";
 import AuthGuard from "@/common/components/authGuard";
 import UInput from "@/common/components/uInput";
 import UButton from "@/common/components/ubutton";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 function EditBook() {
   const [showAlert, setShowAlert] = useState(false);
   const router = useRouter();
-  console.log("The selected book in edit books is: ", router.query);
+  const searchParams = useSearchParams();
+  const selectedBookId = searchParams.get("id");
 
-  const selectedBook = router.query;
+  const [selectedBook, setSelectedBook] = useState({});
+  const booksDataFromRedux = useSelector((state) => {
+    return state.books.booksData;
+  });
+
+  useEffect(() => {
+    if (selectedBookId && booksDataFromRedux.length > 0) {
+      const selectedBook = booksDataFromRedux.find(
+        (item) => item._id === selectedBookId
+      );
+      setSelectedBook(selectedBook);
+    }
+  }, [booksDataFromRedux, selectedBookId]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const updatedBook = {

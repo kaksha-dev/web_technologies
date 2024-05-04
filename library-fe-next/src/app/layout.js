@@ -1,12 +1,15 @@
 import Navbar from "@/common/components/Navbar";
 import "@nodemodules/bootstrap/dist/css/bootstrap.min.css";
+import ReduxStoreProvider from "./reduxStoreProvider";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Navbar></Navbar>
-        {children}
+        <ReduxStoreProvider>
+          <Navbar></Navbar>
+          {children}
+        </ReduxStoreProvider>
       </body>
     </html>
   );
