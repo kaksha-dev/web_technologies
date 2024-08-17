@@ -1,5 +1,5 @@
-* {
-  font-size: 20px;
+body {
+  font-size: 40px;
 }
 
 .container {
@@ -9,7 +9,7 @@
 
 .row {
   display: flex;
-  width: 100%;
+  flex-wrap: wrap;
 }
 
 .col {

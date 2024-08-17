@@ -14,7 +14,7 @@ function renderProducts() {
     document.getElementById("productMenu").innerHTML = `
         <div class="row center">
           <div class="col-6">
-            <table>
+            <table class="table-bordered">
               <thead>
                 <tr>
                   <th>Sr. No. </th>
@@ -63,7 +63,7 @@ function renderProducts() {
   }
 
   initProductsListTable();
-  setTimeout(getProductsList, 5000);
+  setTimeout(getProductsList, 1000);
 }
 
 renderProducts();
