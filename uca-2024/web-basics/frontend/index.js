@@ -1,3 +1,20 @@
+function fooOuter() {
+    let value = "valOuter"
+    let result;
+    fooInner(value, getResult)
+    function getResult(res1) {
+        console.log("The result is : ", res1)
+        result = res1;
+    }
+}
+
+function fooInner(arg1, getResult) {
+    console.log(arg1)
+    let x = 10;
+    let resultsInner = 20;
+    getResult(20)
+}
+
 function renderProducts() {
   let productsListFromServer = [];
 
