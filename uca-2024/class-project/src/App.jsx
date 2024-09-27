@@ -1,5 +1,5 @@
 import { aHeader as AHeader } from "./aHeader";
-import ProductList from "./productList";
+import ProductList from "./components/productList";
 
 export function App() {
   return (
