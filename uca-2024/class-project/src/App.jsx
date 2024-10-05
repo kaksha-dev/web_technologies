@@ -1,14 +1,17 @@
-import { aHeader as AHeader } from "./aHeader";
-import ProductList from "./components/productList";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { routes } from "./routes";
+import { Layout } from "./layout";
 
 export function App() {
+  const router = createBrowserRouter(routes);
+
   return (
     <>
-      <header>
-        <AHeader></AHeader>
-      </header>
-      <main><ProductList l1 = "l1"></ProductList></main>
-      <footer></footer>
+      <Layout prop1="value1">
+        <main>
+          <RouterProvider router={router}></RouterProvider>
+        </main>
+      </Layout>
     </>
   );
 }

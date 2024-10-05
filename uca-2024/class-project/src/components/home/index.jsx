@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./style.css";
+import { Link } from "react-router-dom";
 
 function ProductList() {
   const [productsList, setProductList] = useState([]);
@@ -9,12 +10,12 @@ function ProductList() {
 
   // Variation 1: Do this, Whenever component re-renders
   useEffect(() => {
-    console.log("Component is re-renderd");
+    // console.log("Component is re-renderd");
   });
 
   // Variation 2: Do this, only at initial render
   useEffect(() => {
-    console.log("Component is re-renderd");
+    // console.log("Component is re-renderd");
     // Fetch the details of the produict
     setProductsDetails([]);
   }, []);
@@ -27,6 +28,7 @@ function ProductList() {
   }, [productsDetails]);
 
   setTimeout(() => {
+
     setProductList([
       { name: "Product1 Name", price: 20.0 },
       { name: "Product2 Name", price: 30.0 },
@@ -34,8 +36,8 @@ function ProductList() {
       { name: "Product4 Name", price: 30.0 },
     ]);
     setProductsDetails([]);
-  }, 5000);
-
+  }, 1000);
+  
   return (
     <div>
       <table>
@@ -55,6 +57,10 @@ function ProductList() {
           {priceDetails}
         </tbody>
       </table>
+      
+      <Link to={"/signup"}>Signup</Link>
+      <Link to={"/signin"}>Signin</Link>
+
     </div>
   );
 }
