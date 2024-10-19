@@ -1,0 +1,60 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "a title",
+      "views": 100
+    },
+    {
+      "id": "2",
+      "title": "another title",
+      "views": 200
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "f2c3",
+      "text": "a comment about post 1",
+      "postId": "2"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "users": [
+    {
+      "id": "68ff",
+      "firstName": "SUMIT",
+      "lastName": "Garg",
+      "email": "sg@sg.com",
+      "password": "abcd"
+    }
+  ],
+  "products": [
+    {
+      "id": "b467",
+      "productName": "Product name 5",
+      "productPrice": "200"
+    },
+    {
+      "id": "8901",
+      "productName": "Product 1",
+      "productPrice": "500"
+    },
+    {
+      "id": "b292",
+      "productName": "Product 1",
+      "productPrice": "500"
+    }
+  ]
+}
