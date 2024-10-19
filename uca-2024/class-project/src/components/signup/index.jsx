@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { PageTitle } from "../elements/pageTitle";
 
 export function SignUp() {
   const firstNameRef = useRef(null);
@@ -6,16 +7,18 @@ export function SignUp() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const signUpHandler = (event) => {
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showFailureAlert, setShowFailureAlert] = useState(false);
+
+  const signUpHandler = async (event) => {
     event.preventDefault();
 
-    if (firstNameRef)
-      var formValuesObject = {
-        firstName: firstNameRef.current.value,
-        lastName: lastNameRef.current.value,
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      };
+    var formValuesObject = {
+      firstName: firstNameRef.current.value,
+      lastName: lastNameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
 
     console.log("The event is: ", event);
     console.log("The form values are  is: ", formValuesObject);
@@ -27,21 +30,50 @@ export function SignUp() {
       formValuesObject.password
     ) {
       console.log("Submit this form");
-      // fetch("localhost:8080/signup")
+
       // Make an api/web service call to submit the user details
+      var response = await fetch("http://localhost:3001/users", {
+        method: "POST",
+        body: JSON.stringify({ ...formValuesObject, id: "abc" }),
+      });
+      if (
+        response.ok &&
+        (response.status == "201" || response.status == "200")
+      ) {
+        setShowFailureAlert(false)
+        setShowSuccessAlert(true)
+      } else {
+        setShowSuccessAlert(false)
+        setShowFailureAlert(true)
+      }
+      console.log("The response of POST API call is ", response);
     } else {
-      alert("Form is invalid");
+      setShowFailureAlert(true)
     }
   };
 
   const updateFirstName = () => {
     console.log("on change called: ", firstNameRef);
-    firstNameRef.current.value = firstNameRef.current.value.toUpperCase()
+    let formattedValue = firstNameRef.current.value.toUpperCase();
+    firstNameRef.current.value = formattedValue;
   };
 
   return (
     <>
-      <div>Sign Up Page</div>
+      <PageTitle>Signup Page</PageTitle>
+
+      {showSuccessAlert && (
+        <div className="alert alert-success" role="alert">
+          User created successfully
+        </div>
+      )}
+
+      {showFailureAlert && (
+        <div className="alert alert-danger" role="alert">
+          Error creating user
+        </div>
+      )}
+
       <form className="row g-3" onSubmit={signUpHandler}>
         <div className="col-md-6">
           <label htmlFor="firstName" className="form-label">
@@ -88,7 +120,7 @@ export function SignUp() {
             ref={passwordRef}
           />
         </div>
-        <div className="col-12">
+        <div className="col-12" style={{ textAlign: "center" }}>
           <button type="submit" className="btn btn-primary">
             Submit
           </button>

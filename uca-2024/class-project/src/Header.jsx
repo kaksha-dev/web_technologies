@@ -1,11 +1,13 @@
-export function Header() {
+import { Link } from "react-router-dom";
+import { Button } from "./components/elements/button";
+
+export function Header() {  
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <Link to={"/"} className="navbar-brand">
             EComm
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -20,25 +22,32 @@ export function Header() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link" href="/signin">
-                  Signin
-                </a>
+                <Link to={"/signin"} className="nav-link">
+                  Home
+                </Link>
               </li>
             </ul>
-            <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
+
+            <Button type="primary">
+              <Link to={"addproduct"} className="nav-link">
+                Add Products
+              </Link>
+            </Button>
+
+            <Button type="primary">
+              <Link to={"signin"} className="nav-link">
+                Signin
+              </Link>
+            </Button>
+
+            <Button type="secondary">
+              <Link to={"signup"} className="nav-link">
+                Register
+              </Link>
+            </Button>
+
             {/* <button className="btn btn-outline-success mx-3" onClick={navigateToSignup}>Signup</button> */}
           </div>
-        </div>
       </nav>
     </>
   );
