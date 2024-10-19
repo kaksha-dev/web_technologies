@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { PageTitle } from "../elements/pageTitle";
 
-// eslint-disable-next-line react/prop-types
 export function ManageProduct({ type = "add" }) {
   // type can be add or edit
 
