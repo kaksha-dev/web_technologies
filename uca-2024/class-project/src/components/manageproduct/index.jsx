@@ -1,30 +1,73 @@
 import { useEffect, useRef, useState } from "react";
 import { PageTitle } from "../elements/pageTitle";
+import { useLocation } from "react-router-dom";
+import { Input } from "../elements/form/input";
 
 export function ManageProduct({ type = "add" }) {
   // type can be add or edit
+  const routerData = useLocation();
 
-  const productName = useRef(null);
-  const productPrice = useRef(null);
+  // const productName = useRef(null);
+  // const productPrice = useRef(null);
 
   const [selectedproduct, setSelectedProduct] = useState({});
-
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showFailureAlert, setShowFailureAlert] = useState(false);
 
+  const [productName, setProductName] = useState(
+    type === "add" ? "" : selectedproduct?.productName
+  );
+  const [productPrice, setProductPrice] = useState(
+    type === "add" ? "" : selectedproduct?.productPrice
+  );
+
+  // ----------------------------------------------------------------
+  const [count, setCount] = useState(0);
+  let numberOfRerenders = 0;
+  let numberOfRerendersWithRef = useRef(0);
+
+  useEffect(() => {
+    numberOfRerenders = numberOfRerenders + 1;
+    numberOfRerendersWithRef.current = numberOfRerendersWithRef.current + 1;
+    // console.log("numberOfRerenders: ", numberOfRerenders);
+    // console.log("numberOfRerendersWithRef: ", numberOfRerendersWithRef.current);
+
+    setTimeout(() => {
+      // do complex calculation
+      setCount(count + 1);
+    }, 1000);
+  });
+
+  // ----------------------------------------------------------------
+
   useEffect(() => {
     if (type !== "edit") return;
-    const selectedProductFromStorage =
-      sessionStorage.getItem("selectedProduct");
-    setSelectedProduct(JSON.parse(selectedProductFromStorage));
-  }, [type]);
+    console.log("Location data is: ", routerData);
+    // const selectedProductFromStorage =
+    //   sessionStorage.getItem("selectedProduct");
+    // setSelectedProduct(JSON.parse(selectedProductFromStorage));
 
-  const addProductHandler = async (event) => {
+    const selectedProductLocal = routerData?.state?.selectedProduct;
+    setSelectedProduct(selectedProductLocal);
+
+    setProductName(type === "add" ? "" : selectedProductLocal?.productName);
+    setProductPrice(type === "add" ? "" : selectedProductLocal?.productPrice);
+  }, [type, routerData]);
+
+  const manageProductHandler = async (event) => {
     event.preventDefault();
 
+    if (type === "add") {
+      addProductHandler();
+    } else {
+      editProductHandler();
+    }
+  };
+
+  const addProductHandler = async () => {
     var formValuesObject = {
-      productName: productName.current.value,
-      productPrice: productPrice.current.value,
+      productName: productName,
+      productPrice: productPrice,
     };
 
     console.log("The event is: ", event);
@@ -54,8 +97,58 @@ export function ManageProduct({ type = "add" }) {
     }
   };
 
+  const editProductHandler = async () => {
+    var formValuesObject = {
+      productName: productName,
+      productPrice: productPrice,
+    };
+
+    console.log("The event is: ", event);
+    console.log("The form values are  is: ", formValuesObject);
+
+    if (formValuesObject.productName && formValuesObject.productPrice) {
+      console.log("Submit this form");
+
+      // Make an api/web service call to submit the user details
+      var response = await fetch(
+        `http://localhost:3001/products/${selectedproduct.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ ...formValuesObject }),
+        }
+      );
+      if (
+        response.ok &&
+        (response.status == "201" || response.status == "200")
+      ) {
+        setShowFailureAlert(false);
+        setShowSuccessAlert(true);
+      } else {
+        setShowSuccessAlert(false);
+        setShowFailureAlert(true);
+      }
+      console.log("The response of POST API call is ", response);
+    } else {
+      setShowFailureAlert(true);
+    }
+  };
+
+  const getProductName = (event) => {
+    console.log(event.target.value);
+    setProductName(event.target.value);
+  };
+
+  const getProductPrice = (event) => {
+    console.log(event.target.value);
+    setProductPrice(event.target.value);
+  };
+
   return (
     <>
+      <div key={count}>Sample Key Element</div>
+      <div key={count + 1}>Sample Key Element + 1</div>
+      <div key={count + 2}>Sample Key Element + 2</div>
+
       {type === "add" ? (
         <PageTitle>Add Product Page</PageTitle>
       ) : (
@@ -64,40 +157,32 @@ export function ManageProduct({ type = "add" }) {
 
       {showSuccessAlert && (
         <div className="alert alert-success" role="alert">
-          Product Added successfully
+          Product Added/Updated successfully
         </div>
       )}
 
       {showFailureAlert && (
         <div className="alert alert-danger" role="alert">
-          Error creating product
+          Error creating/updating product
         </div>
       )}
 
-      <form className="row g-3" onSubmit={addProductHandler}>
+      <form className="row g-3" onSubmit={manageProductHandler}>
         <div className="col-md-6">
-          <label htmlFor="productName" className="form-label">
-            Product name
-          </label>
-          <input
-            type="text"
-            className="form-control"
+          <Input
             id="productName"
-            ref={productName}
-            defaultValue={type === "add" ? "" : selectedproduct.productName}
-          />
+            label="Product name"
+            onChange={getProductName}
+            defaultValue={type === "add" ? "" : selectedproduct?.productName}
+          ></Input>
         </div>
         <div className="col-md-6">
-          <label htmlFor="productPrice" className="form-label">
-            Product price
-          </label>
-          <input
-            type="text"
-            className="form-control"
+          <Input
             id="productPrice"
-            ref={productPrice}
-            defaultValue={type === "add" ? "" : selectedproduct.productPrice}
-          />
+            label="Product price"
+            onChange={getProductPrice}
+            defaultValue={type === "add" ? "" : selectedproduct?.productPrice}
+          ></Input>
         </div>
 
         <div className="col-12" style={{ textAlign: "center" }}>

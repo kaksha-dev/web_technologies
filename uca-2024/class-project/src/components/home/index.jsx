@@ -2,13 +2,18 @@ import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { Button } from "../elements/button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ProductList() {
   const navigate = useNavigate();
   const [productsList, setProductList] = useState([]);
   const [productsDetails, setProductsDetails] = useState([]);
   const [, setPriceDetails] = useState([]);
+  const [selectedProductForDelete, setSelectedProductForDelete] =
+    useState(null);
+
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showFailureAlert, setShowFailureAlert] = useState(false);
 
   // Variation 1: Do this, Whenever component re-renders
   useEffect(() => {
@@ -62,13 +67,66 @@ function ProductList() {
   // }, 1000);
 
   const navigateToEditProduct = (item) => {
-    sessionStorage.setItem("selectedProduct", JSON.stringify(item));
+    // sessionStorage.setItem("selectedProduct", JSON.stringify(item));
     // navigate("editproduct", { state: item });
-    navigate("/editproduct");
+    navigate("/editproduct", { state: { selectedProduct: item } });
+  };
+
+  const deleteProduct = (item) => {
+    setSelectedProductForDelete(item);
+  };
+
+  const deleteProductHandler = async () => {
+    // Make an api/web service call to submit the user details
+    var response = await fetch(
+      `http://localhost:3001/products/${selectedProductForDelete.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    if (response.ok && (response.status == "201" || response.status == "200")) {
+      setShowFailureAlert(false);
+      setShowSuccessAlert(true);
+      setSelectedProductForDelete(null);
+      fetchProductData();
+    } else {
+      setShowSuccessAlert(false);
+      setShowFailureAlert(true);
+    }
+    console.log("The response of POST API call is ", response);
   };
 
   return (
     <div>
+      {showSuccessAlert && (
+        <div className="alert alert-success" role="alert">
+          Product deleted successfully
+        </div>
+      )}
+
+      {showFailureAlert && (
+        <div className="alert alert-danger" role="alert">
+          Error deleting product
+        </div>
+      )}
+      <>
+        {selectedProductForDelete && (
+          <div style={{ display: "flex" }}>
+            <p>Are you sure, want to delete</p>
+            <Button type="primary" onClick={deleteProductHandler}>
+              Yes
+            </Button>
+            <Button
+              type="primary"
+              onClick={() => {
+                setSelectedProductForDelete(null);
+              }}
+            >
+              No
+            </Button>
+          </div>
+        )}
+      </>
       <table className="table table-bordered">
         <thead>
           <tr>
@@ -86,16 +144,24 @@ function ProductList() {
                 <td>{item.productName}</td>
                 <td>{item.productPrice}</td>
                 <td>
-                  <Button type="primary">
-                    <Link
-                      className="nav-link"
+                  <div style={{ display: "flex" }}>
+                    <Button
+                      type="primary"
                       onClick={() => {
                         navigateToEditProduct(item);
                       }}
                     >
                       Edit Product
-                    </Link>
-                  </Button>
+                    </Button>
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        deleteProduct(item);
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 </td>
               </tr>
             );
