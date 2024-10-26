@@ -1,14 +1,9 @@
-{ 
-    "products" : [
-        {
-            "id": "b467",
-            "productName": "Product name 1",
-            "productPrice": "200"
-        }, 
-        {
-            "id": "b468",
-            "productName": "Product name 2",
-            "productPrice": "500"
-        }
-    ]
+{
+  "products": [
+    { "id": "b467", "productName": "Product name 1", "productPrice": "200" },
+    { "id": "b468", "productName": "Product name 2", "productPrice": "500" },
+    { "id": "b469", "productName": "Product name 3", "productPrice": "750" },
+    { "id": "b470", "productName": "Product name 4", "productPrice": "600" },
+    { "id": "b470", "productName": "Product name 4", "productPrice": "600" }
+  ]
 }
