@@ -77,9 +77,10 @@ export function ManageProduct({ type = "add" }) {
       console.log("Submit this form");
 
       // Make an api/web service call to submit the user details
-      var response = await fetch("http://localhost:3001/products", {
+      var response = await fetch("http://localhost:8080/products", {
         method: "POST",
-        body: JSON.stringify({ ...formValuesObject }),
+        body: JSON.stringify({ id: new Date().getTime().toString() , ...formValuesObject  }),
+        headers: { "Content-Type": "application/json" },
       });
       if (
         response.ok &&
@@ -111,10 +112,11 @@ export function ManageProduct({ type = "add" }) {
 
       // Make an api/web service call to submit the user details
       var response = await fetch(
-        `http://localhost:3001/products/${selectedproduct.id}`,
+        `http://localhost:8080/products`,
         {
           method: "PUT",
-          body: JSON.stringify({ ...formValuesObject }),
+          body: JSON.stringify({ id: selectedproduct.id, ...formValuesObject }),
+          headers: { "Content-Type": "application/json" },
         }
       );
       if (
