@@ -1,5 +1,6 @@
 import express from "express";
 import fileSystem from "fs";
+import { ProductsModel } from "../models/products.js";
 
 const router = express.Router();
 
@@ -62,12 +63,14 @@ router.put("/", (req, res) => {
   let currentProductsList = dbParsed.products;
 
   // Update the products list with updated data
-  let productToBeUpdatedIndex = currentProductsList.findIndex((item) => item.id === product.id);
-  if(productToBeUpdatedIndex > -1) {
+  let productToBeUpdatedIndex = currentProductsList.findIndex(
+    (item) => item.id === product.id
+  );
+  if (productToBeUpdatedIndex > -1) {
     currentProductsList[productToBeUpdatedIndex] = product;
   } else {
     res.status(400);
-    res.send({error: "Product does not exist"})
+    res.send({ error: "Product does not exist" });
   }
 
   let updatedDbParsed = { ...dbParsed, products: currentProductsList };
@@ -99,14 +102,18 @@ router.delete("/", (req, res) => {
   let currentProductsList = dbParsed.products;
 
   // Update the products list with updated data
-  let productToBeUpdatedIndex = currentProductsList.findIndex((item) => item.id === product.id);
-  let updatedProductsList
-  if(productToBeUpdatedIndex > -1) {
-    currentProductsList.splice(productToBeUpdatedIndex, 1)
-    updatedProductsList = currentProductsList.filter(item => item.id !== product.id)
+  let productToBeUpdatedIndex = currentProductsList.findIndex(
+    (item) => item.id === product.id
+  );
+  let updatedProductsList;
+  if (productToBeUpdatedIndex > -1) {
+    currentProductsList.splice(productToBeUpdatedIndex, 1);
+    updatedProductsList = currentProductsList.filter(
+      (item) => item.id !== product.id
+    );
   } else {
     res.status(400);
-    res.send({error: "Product does not exist"})
+    res.send({ error: "Product does not exist" });
   }
 
   let updatedDbParsed = { ...dbParsed, products: updatedProductsList };
