@@ -1,6 +1,7 @@
 // const app = require("express")
 import express from "express";
 import productsRoute from "./routes/products.js";
+import "./config/dbconnection.js";
 
 const app = express();
 const port = "8080";
@@ -10,7 +11,10 @@ app.use(express.json());
 app.use("*", (req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, PUT, POST, DELETE, OPTIONS"
+  );
   next();
 });
 
