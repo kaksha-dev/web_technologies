@@ -1,10 +1,16 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function SignIn() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const signUpHandler = (event) => {
+  const [signInSuccess, setSignInSuccess] = useState(false);
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, [signInSuccess]);
+
+  const signInHandler = async (event) => {
     event.preventDefault();
 
     var formValuesObject = {
@@ -15,21 +21,51 @@ export function SignIn() {
     console.log("The event is: ", event);
     console.log("The form values are  is: ", formValuesObject);
 
-    if (
-      formValuesObject.email &&
-      formValuesObject.password
-    ) {
+    if (formValuesObject.email && formValuesObject.password) {
       console.log("Submit this form");
-      // fetch("localhost:8080/signup")
+      const signInResponse = await fetch("http://localhost:8080/user/signin", {
+        method: "POST",
+        body: JSON.stringify(formValuesObject),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (signInResponse.ok && signInResponse.status == "200") {
+        const signInResponseData = await signInResponse.json();
+        localStorage.setItem("authToken", signInResponseData?.token);
+        localStorage.setItem("email", formValuesObject.email);
+
+        setSignInSuccess(true);
+        alert("Signin success");
+      } else {
+        alert("Signin failed");
+      }
       // Make an api/web service call to submit the user details
     } else {
       alert("Form is invalid");
     }
   };
 
+  const fetchUserDetails = async () => {
+    let email = localStorage.getItem("email");
+    var productsResponse = await fetch(`http://localhost:8080/user/${email}`, {
+      headers: {
+        Authorization: localStorage.getItem("authToken"),
+      },
+    });
+    var userDetails = await productsResponse.json();
+
+    console.log("The user details are: ", userDetails);
+    if (productsResponse.ok && productsResponse.status == "200") {
+      localStorage.setItem("user", userDetails);
+    } else {
+      // setShowFailureAlert(true);
+    }
+  };
+
   return (
     <>
-      <form className="g-3" onSubmit={signUpHandler}>
+      <form className="g-3" onSubmit={signInHandler}>
         <div className="row justify-content-md-center">
           <div className="col-6">
             <label htmlFor="inputEmail4" className="form-label">

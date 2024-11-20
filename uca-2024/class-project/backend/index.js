@@ -1,6 +1,7 @@
 // const app = require("express")
 import express from "express";
 import productsRoute from "./routes/products.js";
+import userRoute from "./routes/user.js";
 import "./config/dbconnection.js";
 
 const app = express();
@@ -20,6 +21,7 @@ app.use("*", (req, res, next) => {
 
 // Routing middleware
 app.use("/products", productsRoute);
+app.use("/user", userRoute);
 
 app.get("/", (req, res) => {
   // Do some logic here

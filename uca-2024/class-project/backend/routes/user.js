@@ -1,12 +1,13 @@
 import express from "express";
-import ProductsModel from "../models/products.js";
+// import fileSystem from "fs";
+import UserModel from "../models/user.js";
+import { verifyToken } from "../utils/helpers.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  console.log("Response now from router");
-
-  ProductsModel.findAllProducts(
+router.get("/:email", verifyToken, (req, res) => {
+  UserModel.getUser(
+    req,
     (dbRes) => {
       if (dbRes) {
         res.send(dbRes);
@@ -17,73 +18,49 @@ router.get("/", (req, res) => {
     },
     (dbErr) => {
       console.log(dbErr.name);
-      res.status(500);
+      res.status(dbErr.status || 500);
+      res.send({ error: dbErr.message });
+    }
+  );
+});
+
+router.post("/signin", (req, res) => {
+  const userCreds = req.body;
+  console.log("The userCreds are: ", userCreds);
+
+  UserModel.signIn(
+    userCreds,
+    (dbRes) => {
+      if (dbRes) {
+        res.send(dbRes);
+      } else {
+        res.status(400);
+        res.send(dbRes);
+      }
+    },
+    (dbErr) => {
+      console.log(dbErr.name);
+      if (dbErr.name === "ValidationError") {
+        res.status(dbErr.status || 400);
+      } else {
+        res.status(dbErr.status || 500);
+      }
       res.send({ error: dbErr.message });
     }
   );
 });
 
 router.post("/", (req, res) => {
-  const product = req.body;
+  const user = req.body;
 
-  ProductsModel.addProduct(
-    product,
+  UserModel.addUser(
+    user,
     (dbRes) => {
       if (dbRes) {
         res.send(dbRes);
       } else {
         res.status(400);
         res.send(dbRes);
-      }
-    },
-    (dbErr) => {
-      console.log(dbErr.name);
-      if (dbErr.name === "ValidationError") {
-        res.status(400);
-      } else {
-        res.status(500);
-      }
-      res.send({ error: dbErr.message });
-    }
-  );
-});
-
-router.put("/", (req, res) => {
-  const product = req.body;
-
-  ProductsModel.editProduct(
-    product,
-    (dbRes) => {
-      if (dbRes) {
-        res.send(dbRes);
-      } else {
-        res.status(400);
-        res.send(dbRes);
-      }
-    },
-    (dbErr) => {
-      console.log(dbErr.name);
-      if (dbErr.name === "ValidationError") {
-        res.status(400);
-      } else {
-        res.status(500);
-      }
-      res.send({ error: dbErr.message });
-    }
-  );
-});
-
-router.delete("/", (req, res) => {
-  const productId = req.body._id;
-
-  ProductsModel.deleteProduct(
-    productId,
-    (dbRes) => {
-      if (dbRes) {
-        res.send(dbRes);
-      } else {
-        res.status(400);
-        res.send({error: "Product does not exist"});
       }
     },
     (dbErr) => {

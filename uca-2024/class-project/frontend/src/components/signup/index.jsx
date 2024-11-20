@@ -32,30 +32,33 @@ export function SignUp() {
       console.log("Submit this form");
 
       // Make an api/web service call to submit the user details
-      var response = await fetch("http://localhost:3001/users", {
+      var response = await fetch("http://localhost:8080/user", {
         method: "POST",
-        body: JSON.stringify({ ...formValuesObject, id: "abc" }),
+        body: JSON.stringify({ ...formValuesObject }),
+        headers: {
+          "Content-Type": "application/json"
+        }
       });
       if (
         response.ok &&
         (response.status == "201" || response.status == "200")
       ) {
-        setShowFailureAlert(false)
-        setShowSuccessAlert(true)
+        setShowFailureAlert(false);
+        setShowSuccessAlert(true);
       } else {
-        setShowSuccessAlert(false)
-        setShowFailureAlert(true)
+        setShowSuccessAlert(false);
+        setShowFailureAlert(true);
       }
       console.log("The response of POST API call is ", response);
     } else {
-      setShowFailureAlert(true)
+      setShowFailureAlert(true);
     }
   };
 
   const updateFirstName = () => {
     console.log("on change called: ", firstNameRef);
-    let formattedValue = firstNameRef.current.value.toUpperCase();
-    firstNameRef.current.value = formattedValue;
+    // let formattedValue = firstNameRef.current.value.toUpperCase();
+    // firstNameRef.current.value = formattedValue;
   };
 
   return (
