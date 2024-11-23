@@ -7,7 +7,9 @@ export function SignIn() {
   const [signInSuccess, setSignInSuccess] = useState(false);
 
   useEffect(() => {
-    fetchUserDetails();
+    if (signInSuccess) {
+      fetchUserDetails();
+    }
   }, [signInSuccess]);
 
   const signInHandler = async (event) => {
@@ -33,7 +35,7 @@ export function SignIn() {
       if (signInResponse.ok && signInResponse.status == "200") {
         const signInResponseData = await signInResponse.json();
         localStorage.setItem("authToken", signInResponseData?.token);
-        localStorage.setItem("email", formValuesObject.email);
+        localStorage.setItem("loggedInUserEmail", formValuesObject.email);
 
         setSignInSuccess(true);
         alert("Signin success");
@@ -47,7 +49,7 @@ export function SignIn() {
   };
 
   const fetchUserDetails = async () => {
-    let email = localStorage.getItem("email");
+    let email = localStorage.getItem("loggedInUserEmail");
     var productsResponse = await fetch(`http://localhost:8080/user/${email}`, {
       headers: {
         Authorization: localStorage.getItem("authToken"),
@@ -57,7 +59,8 @@ export function SignIn() {
 
     console.log("The user details are: ", userDetails);
     if (productsResponse.ok && productsResponse.status == "200") {
-      localStorage.setItem("user", userDetails);
+      localStorage.setItem("userDetails", userDetails);
+      window.location.reload();
     } else {
       // setShowFailureAlert(true);
     }

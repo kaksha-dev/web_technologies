@@ -3,6 +3,8 @@ import ProductList from "./components/home";
 import { SignIn } from "./components/signin";
 import { SignUp } from "./components/signup";
 import { Layout } from "./layout.jsx";
+import { isUserLoggedIn } from "./utils/helpers.js";
+import { Navigate } from "react-router-dom";
 
 export const routes = [
   {
@@ -15,7 +17,11 @@ export const routes = [
       },
       {
         path: "/signin",
-        element: <SignIn></SignIn>,
+        element: !isUserLoggedIn() ? (
+          <SignIn></SignIn>
+        ) : (
+          <Navigate to="/" replace={true} />
+        ),
       },
       {
         path: "/signup",
