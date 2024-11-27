@@ -5,7 +5,7 @@ import userRoute from "./routes/user.js";
 import "./config/dbconnection.js";
 
 const app = express();
-const port = "8080";
+const port = "8081";
 
 // Generic Middlewares
 app.use(express.json());
@@ -18,6 +18,8 @@ app.use("*", (req, res, next) => {
   );
   next();
 });
+
+app.use("/", express.static("./../frontend/dist"))
 
 // Routing middleware
 app.use("/products", productsRoute);
