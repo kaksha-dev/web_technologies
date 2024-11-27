@@ -35,7 +35,7 @@ function ProductList() {
   }, []);
 
   const fetchProductData = async () => {
-    var productsResponse = await fetch("http://localhost:8080/products");
+    var productsResponse = await fetch(`${import.meta.env.VITE_NODEJS_BACKEND}/products`);
     var productsList = await productsResponse.json();
 
     console.log("The products list is: ", productsList);
@@ -78,7 +78,7 @@ function ProductList() {
 
   const deleteProductHandler = async () => {
     // Make an api/web service call to submit the user details
-    var response = await fetch(`http://localhost:8080/products`, {
+    var response = await fetch(`${import.meta.env.VITE_NODEJS_BACKEND}/products`, {
       method: "DELETE",
       body: JSON.stringify({ _id: selectedProductForDelete._id }),
       headers: { "Content-Type": "application/json" },

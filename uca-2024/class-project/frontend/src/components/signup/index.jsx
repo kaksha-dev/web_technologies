@@ -32,13 +32,16 @@ export function SignUp() {
       console.log("Submit this form");
 
       // Make an api/web service call to submit the user details
-      var response = await fetch("http://localhost:8080/user", {
-        method: "POST",
-        body: JSON.stringify({ ...formValuesObject }),
-        headers: {
-          "Content-Type": "application/json"
+      var response = await fetch(
+        `${import.meta.env.VITE_NODEJS_BACKEND}/user`,
+        {
+          method: "POST",
+          body: JSON.stringify({ ...formValuesObject }),
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
       if (
         response.ok &&
         (response.status == "201" || response.status == "200")

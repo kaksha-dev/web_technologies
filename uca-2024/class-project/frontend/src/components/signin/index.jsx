@@ -25,7 +25,7 @@ export function SignIn() {
 
     if (formValuesObject.email && formValuesObject.password) {
       console.log("Submit this form");
-      const signInResponse = await fetch("http://localhost:8080/user/signin", {
+      const signInResponse = await fetch(`${import.meta.env.VITE_NODEJS_BACKEND}/user/signin`, {
         method: "POST",
         body: JSON.stringify(formValuesObject),
         headers: {
@@ -50,7 +50,7 @@ export function SignIn() {
 
   const fetchUserDetails = async () => {
     let email = localStorage.getItem("loggedInUserEmail");
-    var productsResponse = await fetch(`http://localhost:8080/user/${email}`, {
+    var productsResponse = await fetch(`${import.meta.env.VITE_NODEJS_BACKEND}/user/${email}`, {
       headers: {
         Authorization: localStorage.getItem("authToken"),
       },
