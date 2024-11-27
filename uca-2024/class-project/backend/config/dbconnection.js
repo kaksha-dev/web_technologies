@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 try {
   await mongoose.connect(
-    "mongodb+srv://vaibhav:vaibhav@cluster0.l3cv6.mongodb.net/classprojectdb"
+    process.env.DB_CONNECTION
   );
-  console.log("Db Connection success")
+  console.log("Db Connection success");
 } catch (error) {
-    console.error("DB connection failed with error: ", error)
+  console.error("DB connection failed with error: ", error);
 }
