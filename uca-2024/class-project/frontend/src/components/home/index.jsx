@@ -3,10 +3,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { Button } from "../elements/button";
 import { useNavigate } from "react-router-dom";
+import { setProductList } from "../../redux/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function ProductList() {
   const navigate = useNavigate();
-  const [productsList, setProductList] = useState([]);
+  const dispatch = useDispatch();
+  // const [productsList, setProductList] = useState([]);
+  const productsList = useSelector((state) => {
+    return state.products.productsList;
+  });
   const [productsDetails, setProductsDetails] = useState([]);
   const [, setPriceDetails] = useState([]);
   const [selectedProductForDelete, setSelectedProductForDelete] =
@@ -35,7 +41,9 @@ function ProductList() {
   }, []);
 
   const fetchProductData = async () => {
-    var productsResponse = await fetch(`${import.meta.env.VITE_NODEJS_BACKEND}/products`);
+    var productsResponse = await fetch(
+      `${import.meta.env.VITE_NODEJS_BACKEND}/products`
+    );
     var productsList = await productsResponse.json();
 
     console.log("The products list is: ", productsList);
@@ -43,7 +51,8 @@ function ProductList() {
       productsResponse.ok &&
       (productsResponse.status == "201" || productsResponse.status == "200")
     ) {
-      setProductList(productsList);
+      // setProductList(productsList);
+      dispatch(setProductList(productsList));
     } else {
       // setShowFailureAlert(true);
     }
@@ -78,11 +87,14 @@ function ProductList() {
 
   const deleteProductHandler = async () => {
     // Make an api/web service call to submit the user details
-    var response = await fetch(`${import.meta.env.VITE_NODEJS_BACKEND}/products`, {
-      method: "DELETE",
-      body: JSON.stringify({ _id: selectedProductForDelete._id }),
-      headers: { "Content-Type": "application/json" },
-    });
+    var response = await fetch(
+      `${import.meta.env.VITE_NODEJS_BACKEND}/products`,
+      {
+        method: "DELETE",
+        body: JSON.stringify({ _id: selectedProductForDelete._id }),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     if (response.ok && (response.status == "201" || response.status == "200")) {
       setShowFailureAlert(false);
       setShowSuccessAlert(true);
