@@ -50,16 +50,16 @@ export function SignIn() {
 
   const fetchUserDetails = async () => {
     let email = localStorage.getItem("loggedInUserEmail");
-    var productsResponse = await fetch(`${import.meta.env.VITE_NODEJS_BACKEND}/user/${email}`, {
+    var userDetailsresponse = await fetch(`${import.meta.env.VITE_NODEJS_BACKEND}/user/${email}`, {
       headers: {
         Authorization: localStorage.getItem("authToken"),
       },
     });
-    var userDetails = await productsResponse.json();
+    var userDetails = await userDetailsresponse.json();
 
     console.log("The user details are: ", userDetails);
-    if (productsResponse.ok && productsResponse.status == "200") {
-      localStorage.setItem("userDetails", userDetails);
+    if (userDetailsresponse.ok && userDetailsresponse.status == "200") {
+      localStorage.setItem("userDetails", JSON.stringify(userDetails));
       window.location.reload();
     } else {
       // setShowFailureAlert(true);

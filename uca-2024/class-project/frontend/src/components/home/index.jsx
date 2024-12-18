@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { Button } from "../elements/button";
@@ -40,7 +40,17 @@ function ProductList() {
     fetchProductData();
   }, []);
 
-  const fetchProductData = async () => {
+  // Sample code for performance improvements
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("Count before update is: ", count);
+      setCount(count + 1);
+      console.log("Count after update is: ", count);
+    }, 1000);
+  });
+
+  const fetchProductData = useCallback(async () => {
     var productsResponse = await fetch(
       `${import.meta.env.VITE_NODEJS_BACKEND}/products`
     );
@@ -56,7 +66,8 @@ function ProductList() {
     } else {
       // setShowFailureAlert(true);
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Variation 3: Do this, based on the dependency update
   useEffect(() => {
@@ -85,7 +96,7 @@ function ProductList() {
     setSelectedProductForDelete(item);
   };
 
-  const deleteProductHandler = async () => {
+  const deleteProductHandlerTemp = async () => {
     // Make an api/web service call to submit the user details
     var response = await fetch(
       `${import.meta.env.VITE_NODEJS_BACKEND}/products`,
@@ -107,8 +118,14 @@ function ProductList() {
     console.log("The response of POST API call is ", response);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const deleteProductHandler = useCallback(deleteProductHandlerTemp, [
+    selectedProductForDelete?._id,
+  ]);
+
   return (
     <div>
+      {count}
       {showSuccessAlert && (
         <div className="alert alert-success" role="alert">
           Product deleted successfully
