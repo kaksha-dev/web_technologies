@@ -1,0 +1,46 @@
+body {
+  font-size: 20px;
+}
+
+.container {
+  margin: 0px;
+}
+
+.container-fluid {
+  margin: 20px;
+}
+
+div {
+  background-color: lightgray;
+  margin: 15px;
+  font-weight: 600;
+}
+
+table {
+  margin: auto;
+}
+
+table,
+th,
+tr,
+td {
+  font-size: 15px;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+header {
+  font-size: 35px;
+}
+
+#header {
+  margin: 40px;
+}
+
+#tag1 {
+  font-size: 30px;
+}
+
+.list {
+  background-color: aqua;
+}
