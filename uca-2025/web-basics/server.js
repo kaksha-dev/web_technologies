@@ -9,3 +9,7 @@ app.listen(port, function() {
   console.log('Server is running on http://localhost:' + port);
 });
 
+app.get('/data', function(req, res) {
+  res.send({message: "hello world" });
+})
+

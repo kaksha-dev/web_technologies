@@ -3,9 +3,9 @@ var x = 20;
 
 function loadProducts(renderProductListsWithData) {
   setTimeout(() => {
-    productsList = productsListFromServer
+    productsList = productsListFromServer;
     renderProductListsWithData();
-  }, 2000);
+  }, 500);
 }
 
 const foo = (arg1) => {
@@ -36,8 +36,9 @@ function renderProducts() {
                 </tr>
             </thead>
             <tbody>
-                ${productsList.map((product, index) => {
-                  return `
+                ${productsList
+                  .map((product, index) => {
+                    return `
                     <tr>
                         <td>${index + 1}</td>
                         <td>${product.name}</td>
@@ -45,7 +46,8 @@ function renderProducts() {
                         <td>${product.description}</td>
                     </tr>
                     `;
-                })}
+                  })
+                  .join("")}
             </tbody>
         </table>`;
   }

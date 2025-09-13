@@ -9,4 +9,9 @@ var productsListFromServer = [
     price: "$20.00",
     description: "This product is even better.",
   },
+  {
+    name: "Product 3",
+    price: "$20.00",
+    description: "This product is even better.",
+  },
 ];
