@@ -41,7 +41,7 @@ const scoreGen = scoreGenerator();
 // Getting the first score
 scoreGen.next(); // {value: 0, done: false}
 scoreGen.next(); // {value: 1, done: false}
-scoreGen.next(); // {value: 1, done: true}
+scoreGen.next(); // {value: 2, done: true}
 scoreGen.next(); // {value: undefined, done: true}
 
 // Function declaration - When declaring - define function paramters (not arguments)

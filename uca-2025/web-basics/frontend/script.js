@@ -55,5 +55,18 @@ function renderProducts() {
   loadProducts(renderProductListsWithData);
   renderProductListsWithData();
 }
-
 renderProducts();
+
+/**
+ * How basic web handles UI update scenarios as compared to React
+ */
+let likes = 25
+function renderDyanamicTextNode() {
+  document.getElementById("dynamicTextNode").innerHTML = `Likes - ${likes}`;
+  setTimeout(() => {
+    likes = likes + 1;
+    renderDyanamicTextNode();
+  }, 2000);
+}
+
+renderDyanamicTextNode()

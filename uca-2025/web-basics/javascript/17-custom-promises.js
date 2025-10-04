@@ -44,25 +44,15 @@ var customPromise1 = new PromiseCustom(customPromiseExecutor);
 
 // Simple custom promise with then and catch methods
 
-function customPromiseExecutorFunc(resolve, reject) {
-  // Asynchronous operation
-  setTimeout(() => {
-    console.log("Promise 1 executed");
-
-    resolve("Promise 1 resolved");
-    // reject("Promise 1 rejected");
-  }, 5000);
-}
-
 function PromiseCustom(executorFunc) {
   this.state = "pending";
-  let successCallback;
+  let successCallback;;
   let failureCallback;
 
   this.then = function (callback) {
     successCallback = callback;
   };
-  this.catch = function () {
+  this.catch = function (callback) {
     failureCallback = callback;
   };
 
@@ -78,8 +68,18 @@ function PromiseCustom(executorFunc) {
   );
 }
 
-var customPromise1 = new PromiseCustom(customPromiseExecutorFunc);
+function customPromiseExecutorFunc(resolve, reject) {
 
+  // Asynchronous operation
+  setTimeout(() => {
+    console.log("Promise 1 executed");
+
+    resolve("Promise 1 resolved");
+    // reject("Promise 1 rejected");
+  }, 5000);
+}
+
+var customPromise1 = new PromiseCustom(customPromiseExecutorFunc);
 customPromise1.then((resolvedReturnValue) => {
   alert("Promise resolved with value: " + resolvedReturnValue);
 });

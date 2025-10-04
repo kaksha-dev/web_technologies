@@ -11,7 +11,7 @@ body {
 }
 
 div {
-  background-color: lightgray;
+  /* background-color: lightgray; */
   margin: 15px;
   font-weight: 600;
 }
@@ -43,4 +43,10 @@ header {
 
 .list {
   background-color: aqua;
+}
+
+#reactapp {
+  background-color: lightgreen;
+  margin: 20px;
+  padding: 10px;
 }
