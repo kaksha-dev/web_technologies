@@ -28,6 +28,7 @@ function App() {
       <LikesComponent></LikesComponent>
       <Likes2Component></Likes2Component>
       <ProductComponent></ProductComponent>
+      <FormComponent></FormComponent>
     </div>
   );
 }
@@ -53,12 +54,12 @@ function LikesComponent(props) {
   // SET STATE METHODS ARE ASYNCHRONOUS
   let [likes, setlikes] = React.useState(0);
 
-  let likesLocal = 1
+  let likesLocal = 1;
 
   function updateLikes() {
     setlikes(likes + 1);
     console.log("Likes", likes);
-    likesLocal = likesLocal + 1
+    likesLocal = likesLocal + 1;
   }
 
   function updateDisLikes() {
@@ -90,7 +91,7 @@ function Likes2Component(props) {
   React.useEffect(() => {
     // fetch the backend data
     const data = fetchData();
-    initialLikesCount = data
+    // initialLikesCount = data
     // return () => {}; // cleanup function
   }, []);
   function fetchData() {
@@ -174,7 +175,48 @@ function ProductComponent(props) {
   );
 }
 
+// Relevance of key prop in lists
+function FormComponent(props) {
+  const tempVariable = React.useRef(10);
+  const [array1, setArray1] = React.useState([
+    "Textbox1",
+    "Textbox2",
+    "Textbox3",
+  ]);
+
+  React.useEffect(() => {
+    // fetchProductList();
+  }, [array1]);
+
+  const changeOrder = () => {
+    const updatedArray1 = [...array1].reverse();
+    setArray1(updatedArray1);
+
+    // tempVariable = tempVariable + 10;
+    tempVariable.current = tempVariable.current + 10;
+    console.log("New value of temp variable", tempVariable);
+  };
+
+  return (
+    <div>
+      {array1.map((item, index) => {
+        return (
+          <div key={item}>
+            <input placeholder={item} />
+          </div>
+        );
+      })}
+
+      <Button label="Change Order" clickBehavior={changeOrder}>
+        <div>Hello World</div>
+      </Button>
+      <button></button>
+    </div>
+  );
+}
+
 function Button(props) {
+  console.log("Butoon props", props);
   return (
     <button
       style={{
