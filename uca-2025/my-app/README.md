@@ -1,0 +1,1 @@
+This is a [Next.js](https://nextjs.org) project and is an em-Commerce application
