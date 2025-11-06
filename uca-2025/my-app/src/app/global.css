@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+body {
+  margin: 10px 20px;
+}
+
+p {
+  color: black;
+}
+
+a {
+  color: darkblue;
+}

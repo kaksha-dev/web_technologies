@@ -1,6 +1,8 @@
-function ProductDetailsPage({ params }) {
-  console.log("---------Page params-----------", params); // Access the dynamic slug parameter
-  return <>PDP page</>;
+async function ProductDetailsPage({ params }) {
+  const paramsLocal = await params;
+  const dynamicProductName = paramsLocal.dynamicProductName.join("/");  
+  console.log("---------Page params-----------", paramsLocal); // Access the dynamic slug parameter
+  return <>PDP page for : {dynamicProductName}</>;
 }
 
 export default ProductDetailsPage;

@@ -1,7 +1,15 @@
 import Link from "next/link";
-import ProductsList from "./components/productsList";
+import ProductsListAlias from "@/app/components/productsList";
 
-export default function Home() {
+export default async function Home() {
+
+  function sleep(sleepTime) {
+    return new Promise((resolve) => setTimeout(resolve, sleepTime));
+  }
+
+  await sleep(10000);
+  console.log("Slept for 10 seconds");
+
   const products = [
     {
       id: 1,
@@ -18,38 +26,35 @@ export default function Home() {
       image: "https://placehold.co/300x200",
     },
     {
-      id: 1,
+      id: 3,
       name: "Product 3",
       price: "20$",
       tag: "On Sale",
       image: "https://placehold.co/300x200",
     },
     {
-      id: 1,
+      id: 4,
       name: "Product 4",
       price: "800$",
       tag: "Best price",
       image: "https://placehold.co/300x200",
-    }
+    },
   ];
+
   return (
     <>
-      <h1>Home Page!</h1>
-      <Link href="/login">Go to login</Link>
-      <div>List of Products</div>
-      <ProductsList products={products} />
+      <div style={{ textAlign: "center" }}>
+        <h1>Welcome to the books ecommerce application</h1>
+      </div>
+
+      {/* <div></div> */}
+      <ProductsListAlias products={products} />
     </>
   );
 }
 
-
 // /p/poduct1
 
 // /p/poduct2
-
-
-
-
-
 
 // /p/product1000
