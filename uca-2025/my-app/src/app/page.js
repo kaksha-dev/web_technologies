@@ -1,14 +1,17 @@
 import Link from "next/link";
 import ProductsListAlias from "@/app/components/productsList";
 
-export default async function Home() {
+// Cache revalidation / Disable caching for this page with 0 value
+// export const revalidate = 10;
 
+export default async function Home() {
+  // -------Simulate API call behavior with a delay-------
   function sleep(sleepTime) {
     return new Promise((resolve) => setTimeout(resolve, sleepTime));
   }
-
-  await sleep(10000);
+  await sleep(2000);
   console.log("Slept for 10 seconds");
+  // -----------------------------------------------------
 
   const products = [
     {
