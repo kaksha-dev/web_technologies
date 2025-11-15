@@ -1,8 +1,9 @@
 import Link from "next/link";
 import ProductsListAlias from "@/app/components/productsList";
+import Button from "./components/button";
 
 // Cache revalidation / Disable caching for this page with 0 value
-// export const revalidate = 10;
+export const revalidate = 60;
 
 export default async function Home() {
   // -------Simulate API call behavior with a delay-------
@@ -52,6 +53,19 @@ export default async function Home() {
 
       {/* <div></div> */}
       <ProductsListAlias products={products} />
+      <div>
+        <section className="border-2 border-solid py-8">
+          <div className="max-w-6xl mx-auto text-center px-4">
+            <h2 className="text-4xl font-bold mb-4">
+              Discover the Best Deals Online
+            </h2>
+            <p className="text-lg text-gray-600 mb-6">
+              Shop thousands of products from top brands at unbeatable prices.
+            </p>
+          </div>
+          <Button variant="light">Take me to Login page</Button>
+        </section>
+      </div>
     </>
   );
 }

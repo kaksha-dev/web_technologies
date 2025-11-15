@@ -3,6 +3,13 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import styles from "./login.module.css";
+import Button from "../components/button";
+
+// export const revalidate = 60;
+
+// Scenario 1- Do not provide revalidate // static page  Recommended approach
+// Scenario 2- add revalidate with value as 0 // revalidate=0 // dynamic server side page
+// Scenario 3 - add revalidate with value as 60 // cached page revalidated after 60 seconds
 
 export default function Login() {
   //   useEffect(() => {
@@ -14,17 +21,41 @@ export default function Login() {
   };
   return (
     <div style={{ margin: "50px" }}>
-      <h2>Hello from login page</h2>{" "}
-      <form className={styles.form}>
-        <input type="text" placeholder="Username" />
-        <br />
-        <input type="password" placeholder="Password" />
-        <br />
-        <button type="submit" onClick={loginHandler}>
-          Login
-        </button>
-        {/* <button type="submit">Login</button> */}
+      <form className="max-w-sm mx-auto">
+        <div className="mb-5">
+          <label
+            htmlFor="email"
+            className="block mb-2.5 text-sm font-medium text-heading"
+          >
+            Your email
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+            placeholder="name@flowbite.com"
+            required
+          />
+        </div>
+        <div className="mb-5">
+          <label
+            htmlFor="password"
+            className="block mb-2.5 text-sm font-medium text-heading"
+          >
+            Your password
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+            placeholder="••••••••"
+            required
+          />
+        </div>
       </form>
+      <div className="text-center">
+        <Button variant="light">Login</Button>
+      </div>
       <Link href="/">Go to home</Link>
     </div>
   );
