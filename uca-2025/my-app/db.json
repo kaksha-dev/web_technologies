@@ -1,0 +1,44 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Wireless Mouse",
+      "price": 25.99,
+      "category": "Electronics",
+      "stock": 150,
+      "image": "https://placehold.co/300x250"
+    },
+    {
+      "id": "2",
+      "name": "Bluetooth Headphones",
+      "price": 59.99,
+      "category": "Electronics",
+      "stock": 85,
+      "image": "https://placehold.co/300x250"
+    },
+    {
+      "id": "3",
+      "name": "Coffee Maker",
+      "price": 89.99,
+      "category": "Appliances",
+      "stock": 40,
+      "image": "https://placehold.co/300x250"
+    },
+    {
+      "id": "4",
+      "name": "Yoga Mat",
+      "price": 19.99,
+      "category": "Fitness",
+      "stock": 200,
+      "image": "https://placehold.co/300x250"
+    },
+    {
+      "id": "5",
+      "name": "Desk Lamp",
+      "price": 34.99,
+      "category": "Furniture",
+      "stock": 120,
+      "image": "https://placehold.co/300x250"
+    }
+  ]
+}
