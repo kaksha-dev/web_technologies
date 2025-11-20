@@ -1,0 +1,12 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Wireless Mouse",
+      "price": 25.99,
+      "category": "Electronics",
+      "stock": 150,
+      "image": "https://placehold.co/300x250"
+    }
+  ]
+}
