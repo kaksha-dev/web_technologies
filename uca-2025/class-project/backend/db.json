@@ -7,6 +7,14 @@
       "category": "Electronics",
       "stock": 150,
       "image": "https://placehold.co/300x250"
+    },
+    {
+      "id": "4",
+      "name": "Macbook",
+      "price": 2200.99,
+      "category": "Electronics",
+      "stock": 20,
+      "image": "https://placehold.co/300x250"
     }
   ]
 }
