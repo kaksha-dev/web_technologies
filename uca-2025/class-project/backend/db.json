@@ -15,6 +15,11 @@
       "category": "Electronics",
       "stock": 20,
       "image": "https://placehold.co/300x250"
+    },
+    {
+      "name": "Mobile 2",
+      "price": "60",
+      "image": "https://placehold.co/300x250"
     }
   ]
 }
