@@ -2,21 +2,25 @@ import express from "express";
 const router = express.Router();
 // const fileSystem = require("fs");
 import fileSystem from "fs";
+import ProductsModel from "../models/products.js";
 
-router.get("/", (req, res) => {
-  fileSystem.readFile("./db.json", "utf8", (error, data) => {
-    if (error) {
-      console.error("Error reading database file: ", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-    // console.log("Data from database: ", data);
-    const currentDBData = JSON.parse(data);
-    // console.log("Formatted data from database: ", currentDBData);
-    const productsDataFromDB = currentDBData.products;
+router.get("/", async (req, res) => {
+  const productsData = await ProductsModel.getAllProducts();
+  res.json(productsData);
 
-    console.log("Products data from database: ", productsDataFromDB);
-    res.json(productsDataFromDB);
-  });
+  // fileSystem.readFile("./db.json", "utf8", (error, data) => {
+  //   if (error) {
+  //     console.error("Error reading database file: ", error);
+  //     res.status(500).json({ message: "Internal server error" });
+  //   }
+  //   // console.log("Data from database: ", data);
+  //   const currentDBData = JSON.parse(data);
+  //   // console.log("Formatted data from database: ", currentDBData);
+  //   const productsDataFromDB = currentDBData.products;
+
+  //   console.log("Products data from database: ", productsDataFromDB);
+  //   res.json(productsDataFromDB);
+  // });
 });
 
 router.post("/", (req, res) => {
@@ -158,4 +162,3 @@ export default router;
 // /path1 -> handler1 -> handler2 -> handler3
 
 // /path1 -> handler1 => handler2 => handler3 ......son on
-

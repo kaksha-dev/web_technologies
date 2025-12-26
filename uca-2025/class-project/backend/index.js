@@ -2,6 +2,7 @@
 import express from "express";
 // var bodyParser = require("body-parser");
 import bodyParser from "body-parser";
+import "./config/dbConnection.js"
 
 // import the routes
 import productRoutes from "./routes/products.js";
