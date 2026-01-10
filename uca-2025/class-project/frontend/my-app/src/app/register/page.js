@@ -1,17 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect } from "react";
+import styles from "./register.module.css";
 import Button from "../components/button";
-import { useRef } from "react";
 
-export default function AddProductage() {
-  const nameRef = useRef(null);
-  const categoryRef = useRef(null);
-  const stockRef = useRef(null);
-  const priceRef = useRef(null);
-  const imageRef = useRef(null);
+// export const revalidate = 60;
 
-  function submitHandler1() {}
+// Scenario 1- Do not provide revalidate // static page  Recommended approach
+// Scenario 2- add revalidate with value as 0 // revalidate=0 // dynamic server side page
+// Scenario 3 - add revalidate with value as 60 // cached page revalidated after 60 seconds
+
+export default function Login() {
+  //   useEffect(() => {
+  //     localStorage.setItem("token", "mytoken12345");
+  //   }, []);
+
   const submitHandler = () => {
     console.log("Submit button clicked");
     // const name = document.getElementById("name").value;
@@ -57,86 +61,49 @@ export default function AddProductage() {
             htmlFor="name"
             className="block mb-2.5 text-sm font-medium text-heading"
           >
-            Product Name
+            Your name
           </label>
           <input
             type="text"
             id="name"
-            ref={nameRef}
             className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="Mobile...."
+            placeholder="FirstName LastName"
             required
           />
         </div>
         <div className="mb-5">
           <label
-            htmlFor="name"
+            htmlFor="email"
             className="block mb-2.5 text-sm font-medium text-heading"
           >
-            Category
+            Your email
           </label>
           <input
-            type="text"
-            id="name"
-            ref={categoryRef}
+            type="email"
+            id="email"
             className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="Electronics...."
+            placeholder="name@flowbite.com"
             required
           />
         </div>
         <div className="mb-5">
           <label
-            htmlFor="name"
+            htmlFor="password"
             className="block mb-2.5 text-sm font-medium text-heading"
           >
-            Stock
+            Your password
           </label>
           <input
-            type="number"
-            id="name"
-            ref={stockRef}
+            type="password"
+            id="password"
             className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="20...."
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="price"
-            className="block mb-2.5 text-sm font-medium text-heading"
-          >
-            Price
-          </label>
-          <input
-            type="number"
-            id="price"
-            ref={priceRef}
-            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="300$...."
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="image"
-            className="block mb-2.5 text-sm font-medium text-heading"
-          >
-            Image
-          </label>
-          <input
-            type="url"
-            id="image"
-            ref={imageRef}
-            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="https://placeholder/300x200...."
+            placeholder="••••••••"
             required
           />
         </div>
       </form>
       <div className="text-center">
-        <Button variant="light" onClick={submitHandler}>
-          Submit
-        </Button>
+        <Button variant="light">Register</Button>
       </div>
     </div>
   );

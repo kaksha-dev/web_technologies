@@ -25,15 +25,34 @@ const productsSchema = new mongoose.Schema({
 
 const ProductsModel = mongoose.model("Products", productsSchema);
 
-ProductsModel.getAllProducts = async function () {
-  const data = await ProductsModel.find();
-  console.log("The data from database is: ", data);
-  return data;
+ProductsModel.getAllProducts = async function (successCallback, errorCallback) {
+  try {
+    const data = await ProductsModel.find();
+    console.log("The data from database is: ", data);
+    successCallback(data);
+    // return data;
+  } catch (error) {
+    console.error("Error while fetching products: ", error);
+    errorCallback(error);
+    // return error.message;
+  }
 };
 
-ProductsModel.addNewproduct = async function(newProduct) {
-    const createdProduct = await ProductsModel.insertOne(newProduct)
-    return createdProduct;
-}
+ProductsModel.addNewproduct = async function (
+  newProduct,
+  successCallback,
+  errorCallback
+) {
+  try {
+    const createdProduct = await ProductsModel.insertOne(newProduct);
+    successCallback(createdProduct);
+  } catch (error) {
+    console.error(
+      "Error while fetching products: ",
+      error instanceof mongoose.Error.ValidationError
+    );
+    errorCallback(error);
+  }
+};
 
 export default ProductsModel;

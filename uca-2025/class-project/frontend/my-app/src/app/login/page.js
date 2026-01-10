@@ -57,6 +57,8 @@ export default function Login() {
         <Button variant="light">Login</Button>
       </div>
       <Link href="/">Go to home</Link>
+      <br />
+      <Link href="/register">Register</Link>
     </div>
   );
 }
