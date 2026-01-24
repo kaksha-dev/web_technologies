@@ -2,16 +2,29 @@
 
 import Link from "next/link";
 import Button from "../components/button";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function AddProductage() {
+  const [userRole, setUserRole] = useState("");
+  console.log("The userrole outside useEffect is ", userRole);
+
+  useEffect(() => {
+    let userRoleLocal = localStorage.getItem("userrole");
+    setUserRole(userRoleLocal);
+  }, []);
+
+  useEffect(() => {
+    if (userRole && userRole !== "admin") {
+      window.location.href = "/";
+    }
+  }, [userRole]);
+
   const nameRef = useRef(null);
   const categoryRef = useRef(null);
   const stockRef = useRef(null);
   const priceRef = useRef(null);
   const imageRef = useRef(null);
 
-  function submitHandler1() {}
   const submitHandler = () => {
     console.log("Submit button clicked");
     // const name = document.getElementById("name").value;
@@ -50,94 +63,109 @@ export default function AddProductage() {
   };
 
   return (
-    <div style={{ margin: "50px" }}>
-      <form className="max-w-sm mx-auto">
-        <div className="mb-5">
-          <label
-            htmlFor="name"
-            className="block mb-2.5 text-sm font-medium text-heading"
-          >
-            Product Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            ref={nameRef}
-            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="Mobile...."
-            required
-          />
+    <>
+      {userRole === "admin" && (
+        <div style={{ margin: "50px" }}>
+          <form className="max-w-sm mx-auto">
+            <div className="mb-5">
+              <label
+                htmlFor="name"
+                className="block mb-2.5 text-sm font-medium text-heading"
+              >
+                Product Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                ref={nameRef}
+                className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                placeholder="Mobile...."
+                required
+              />
+            </div>
+            <div className="mb-5">
+              <label
+                htmlFor="name"
+                className="block mb-2.5 text-sm font-medium text-heading"
+              >
+                Category
+              </label>
+              <input
+                type="text"
+                id="name"
+                ref={categoryRef}
+                className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                placeholder="Electronics...."
+                required
+              />
+            </div>
+            <div className="mb-5">
+              <label
+                htmlFor="name"
+                className="block mb-2.5 text-sm font-medium text-heading"
+              >
+                Stock
+              </label>
+              <input
+                type="number"
+                id="name"
+                ref={stockRef}
+                className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                placeholder="20...."
+                required
+              />
+            </div>
+            <div className="mb-5">
+              <label
+                htmlFor="price"
+                className="block mb-2.5 text-sm font-medium text-heading"
+              >
+                Price
+              </label>
+              <input
+                type="number"
+                id="price"
+                ref={priceRef}
+                className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                placeholder="300$...."
+                required
+              />
+            </div>
+            <div className="mb-5">
+              <label
+                htmlFor="image"
+                className="block mb-2.5 text-sm font-medium text-heading"
+              >
+                Image
+              </label>
+              <input
+                type="url"
+                id="image"
+                ref={imageRef}
+                className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                placeholder="https://placeholder/300x200...."
+                required
+              />
+            </div>
+          </form>
+          <div className="text-center">
+            <Button variant="light" onClick={submitHandler}>
+              Submit
+            </Button>
+          </div>
         </div>
-        <div className="mb-5">
-          <label
-            htmlFor="name"
-            className="block mb-2.5 text-sm font-medium text-heading"
-          >
-            Category
-          </label>
-          <input
-            type="text"
-            id="name"
-            ref={categoryRef}
-            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="Electronics...."
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="name"
-            className="block mb-2.5 text-sm font-medium text-heading"
-          >
-            Stock
-          </label>
-          <input
-            type="number"
-            id="name"
-            ref={stockRef}
-            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="20...."
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="price"
-            className="block mb-2.5 text-sm font-medium text-heading"
-          >
-            Price
-          </label>
-          <input
-            type="number"
-            id="price"
-            ref={priceRef}
-            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="300$...."
-            required
-          />
-        </div>
-        <div className="mb-5">
-          <label
-            htmlFor="image"
-            className="block mb-2.5 text-sm font-medium text-heading"
-          >
-            Image
-          </label>
-          <input
-            type="url"
-            id="image"
-            ref={imageRef}
-            className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-            placeholder="https://placeholder/300x200...."
-            required
-          />
-        </div>
-      </form>
-      <div className="text-center">
-        <Button variant="light" onClick={submitHandler}>
-          Submit
-        </Button>
-      </div>
-    </div>
+      )}
+      {userRole && userRole !== "admin" && (
+        <h2 style={{ textAlign: "center", marginTop: "50px" }}>
+          You are not authorized to view this page.
+        </h2>
+      )}
+
+      {!userRole && (
+        <h2 style={{ textAlign: "center", marginTop: "50px" }}>
+          Checking authorization...
+        </h2>
+      )}
+    </>
   );
 }

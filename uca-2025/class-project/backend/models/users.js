@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bycrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET_KEY } from "../config/constants";
+import { JWT_SECRET_KEY } from "../config/constants.js";
 
 const usersSchema = new mongoose.Schema({
   name: {
@@ -15,6 +15,11 @@ const usersSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
   },
 });
 
@@ -50,7 +55,6 @@ UsersModel.signin = async function (user, successCallback, errorCallback) {
 
   try {
     const dbRes = await UsersModel.findOne({ email: userEmail });
-    console.log("DB Response for user : ", dbRes);
     if (!dbRes) {
       errorCallback({ message: "User does not exists" });
       return;
@@ -73,22 +77,16 @@ UsersModel.signin = async function (user, successCallback, errorCallback) {
 };
 
 UsersModel.getUser = async function (req, successCallback, errorCallback) {
-  const userEmail = req.params.email;
-  const token = req.headers["authorization"];
+  const userEmail = req.userEmailFromToken;
 
-  try {
-    const jwtDecodedToken = jwt.verify(token, JWT_SECRET_KEY);
-    if (jwtDecodedToken.email !== userEmail) {
-      errorCallback({ message: "Unauthorized access" });
-      return;
-    }
+  const dbRes = await UsersModel.findOne({ email: userEmail });
+  if (!dbRes || !dbRes.email) {
+    console.log("db res: ", dbRes);
 
-    const dbRes = await UsersModel.findOne({ email: userEmail });
-    successCallback({ email: userEmail, name: dbRes.name });
-    console.log("DB Response for user : ", dbRes);
-  } catch (error) {
-    console.log(error)
-    errorCallback(error);
+    errorCallback({ message: "User does not exists" });
+    return;
   }
+  successCallback({ email: userEmail, name: dbRes.name, role: dbRes.role });
+  console.log("DB Response for user : ", dbRes);
 };
 export default UsersModel;

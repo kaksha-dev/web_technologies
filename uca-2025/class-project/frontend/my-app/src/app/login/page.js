@@ -42,7 +42,7 @@ export default function Login() {
   };
 
   const fetchUserDetails = (email) => {
-    fetch(`http://localhost:5000/users/${email}`, {
+    fetch(`http://localhost:5000/users/details`, {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -53,6 +53,8 @@ export default function Login() {
           if (responseData) {
             console.log("user data: ", responseData);
             localStorage.setItem("username", responseData.name);
+            localStorage.setItem("userrole", responseData.role);
+
             window.location.href = "/";
             // window.location.reload();
           }

@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 import mongoose from "mongoose";
 import UsersModel from "../models/users.js";
+import { verifyToken } from "../utils/helpers.js";
 
 router.post("/", async (req, res) => {
   const newUser = req.body;
@@ -43,7 +44,7 @@ router.post("/signin", async (req, res) => {
   );
 });
 
-router.get("/:email", async (req, res) => {
+router.get("/details", verifyToken, async (req, res) => {
   await UsersModel.getUser(
     req,
     (data) => {

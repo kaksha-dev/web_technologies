@@ -4,6 +4,7 @@ const router = express.Router();
 import fileSystem from "fs";
 import ProductsModel from "../models/products.js";
 import mongoose from "mongoose";
+import { verifyToken } from "../utils/helpers.js";
 
 router.get("/", async (req, res) => {
   await ProductsModel.getAllProducts(
@@ -17,7 +18,7 @@ router.get("/", async (req, res) => {
   //   console.log("Products data retrieved: ", productsData);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   const newProduct = req.body;
   console.log("New Product to be added: ", newProduct);
 
