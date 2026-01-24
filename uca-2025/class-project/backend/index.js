@@ -2,10 +2,11 @@
 import express from "express";
 // var bodyParser = require("body-parser");
 import bodyParser from "body-parser";
-import "./config/dbConnection.js"
+import "./config/dbConnection.js";
 
 // import the routes
 import productRoutes from "./routes/products.js";
+import usersRoute from "./routes/users.js";
 
 var app = express();
 var port = 5000;
@@ -23,7 +24,7 @@ app.use("/*splat", function (req, res, next) {
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
   );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
 
@@ -34,6 +35,7 @@ app.get("/", (req, res) => {
 
 // use the routes middleware
 app.use("/products", productRoutes);
+app.use("/users", usersRoute);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}/`);
