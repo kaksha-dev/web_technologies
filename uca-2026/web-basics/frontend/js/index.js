@@ -1,51 +1,95 @@
-// Some common browser APIs
-//   - Network requests
-//   - Web workers
-//   - Service workers
-//   - Web storage
-//   - DOM events
-//   - setTimeout
-//   - setInterval
-//   - navigator.geolocation
+// document.getElementById("appcontent").innerHTML = `
+//     <div>
+//         <h1>Heading of multiline contnet</h2>
+//         <h2>Dynamic Content ${7 + 18}</h2>
+//         <p>Multiline contnet</p>
+//     </div>
+// `;
 
-// Network requests
-//  - xmlHTTPRequest   - XHR
-//  - fetch
+// This data will come from the server
+let productListFromServer = [];
 
-// What does "new" do
-// allocate memory
-// store the reference of memory location in the variable
-// The reference point to "this" keyword inside the class/function(constructor function) definition
+// Load the data as soon page is loading starts
+loadDataFromServer();
+renderProducts(productListFromServer);
 
-// Browser API - Web workers
+async function loadDataFromServer() {
+  setTimeout(() => {
+    productListFromServer = [
+      {
+        name: "Product 1",
+        price: "$10.00",
+        description: "This is a great product.",
+      },
+      {
+        name: "Product 2",
+        price: "$20.00",
+        description: "This product is even better.",
+      },
+      {
+        name: "Product 3",
+        price: "$20.00",
+        description: "This product is even better.",
+      },
+    ];
+    console.log("Data from server: ", productListFromServer);
+    renderProducts(productListFromServer);
+  }, 2000);
+}
 
-// Browser API code - NO
-console.log("Code before the Web workers code"); // isBrowserAPICode : Yes
+function renderProducts(productList) {
+  if (productList.length === 0) {
+    document.getElementById("appcontent").innerHTML = `
+            <h3>Loading data from server...</h3>
+        `;
+    return;
+  }
 
-// Browser API - Webworker
-const webWorker1 = new Worker("./js/worker.js"); // isBrowserAPICode : Yes
+  document.getElementById("appcontent").innerHTML = `
+        <table>
+            <thead>
+                <th>Sr. No.</th>
+                <th>Product Name</th>
+                <th>Price</th>
+            </thead>
+            <tbody>
+                ${productList.map((item) => {
+                  return `
+                       <tr>
+                            <td>${item.name}</td>
+                            <td>${item.price}</td>
+                            <td>${item.description}</td>
+                        </tr> 
+                    `;
+                })}
+            </tbody>
+        </table>
+    `;
+}
 
-webWorker1.postMessage(2000000000); // isBrowserAPICode : Yes
-webWorker1.onmessage = function (event) {
-  // isBrowserAPICode : No
-  document.getElementById("datafromworker").innerHTML =
-    "Data from worker thread: " + event.data;
-};
-
-// Browser API code - NO
-console.log("Code after the Web workers code");
-
-// Bowser API - XMLHttprequest
-const xhr1 = new XMLHttpRequest(); // allocate memory and store the reference in the variable
-// xhr.open("Type", "URL", "isAsync")
-xhr1.open("GET", "https://dummyjson.com/users?limit=10", false); // true - async, false - sync
-// Some other code
-let apiResponse;
-xhr1.onload = function () {
-  apiResponse = xhr1.responseText;
-  console.log(xhr1.responseText);
-  document.getElementById("datafromxmlrequest").innerHTML =
-    "Data from XMLRequest: " + JSON.parse(apiResponse);
-};
-
-xhr1.send(); // send the request to the server
+// document.getElementById("appcontent").innerHTML = `
+//     <table>
+//       <thead>
+//         <th>Sr. No.</th>
+//         <th>Product Name</th>
+//         <th>Price</th>
+//       </thead>
+//       <tbody>
+//         <tr>
+//           <td>1</td>
+//           <td>Mobile Phone</td>
+//           <td>20</td>
+//         </tr>
+//         <tr>
+//           <td>2</td>
+//           <td>Washing Machine</td>
+//           <td>10</td>
+//         </tr>
+//         <tr>
+//           <td>3</td>
+//           <td>Washing Machine</td>
+//           <td>10</td>
+//         </tr>
+//       </tbody>
+//     </table>
+// `;

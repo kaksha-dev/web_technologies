@@ -27,5 +27,4 @@ xhr1.send(); // send the request to the server
 
 // Other JS code
 console.log("API Response", apiResponse);
-
 console.log("Code after the Browser API code");

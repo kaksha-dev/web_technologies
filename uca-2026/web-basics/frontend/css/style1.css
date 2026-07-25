@@ -1,0 +1,13 @@
+body {
+  margin: 50px;
+}
+
+table,
+th, td {
+  margin: 20px;
+  padding: 5px;
+  border: 1px;
+  border-color: black;
+  border-style: solid;
+  border-collapse: collapse;
+}
