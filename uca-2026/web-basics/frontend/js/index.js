@@ -7,33 +7,26 @@
 // `;
 
 // This data will come from the server
-let productListFromServer = [];
+// let productListFromServer = [];
+function setProductListFromServer(productList, callbackFn) {
+  // productListFromServer = productList;
+  callbackFn(productListFromServer);
+}
 
 // Load the data as soon page is loading starts
-loadDataFromServer();
-renderProducts(productListFromServer);
+loadDataFromServer(renderProducts);
+// renderProducts(productListFromServer);
 
-async function loadDataFromServer() {
+// document.body.addEventListener("click", (event) => {
+//   console.log("The target is", event.target);
+//   console.log("The current target is", event.currentTarget);
+// });
+
+function loadDataFromServer(callbackFn) {
   setTimeout(() => {
-    productListFromServer = [
-      {
-        name: "Product 1",
-        price: "$10.00",
-        description: "This is a great product.",
-      },
-      {
-        name: "Product 2",
-        price: "$20.00",
-        description: "This product is even better.",
-      },
-      {
-        name: "Product 3",
-        price: "$20.00",
-        description: "This product is even better.",
-      },
-    ];
+    setProductListFromServer(productListFromServer, callbackFn);
     console.log("Data from server: ", productListFromServer);
-    renderProducts(productListFromServer);
+    // renderProducts(productListFromServer);
   }, 2000);
 }
 
@@ -53,18 +46,38 @@ function renderProducts(productList) {
                 <th>Price</th>
             </thead>
             <tbody>
-                ${productList.map((item) => {
-                  return `
-                       <tr>
+                ${productList
+                  .map((item) => {
+                    return `
+                       <tr id="product-${item.name.replace(/\s+/g, "-")}" style="cursor: pointer" onclick='selectProduct(this)' data-item='${JSON.stringify(item)}'>
                             <td>${item.name}</td>
                             <td>${item.price}</td>
                             <td>${item.description}</td>
                         </tr> 
                     `;
-                })}
+                  })
+                  .join("")}
             </tbody>
         </table>
+        <div id="productdetails"></div>
     `;
+}
+
+function selectProduct(productElement) {
+  console.log("The selected product element is", productElement);
+
+  const product = JSON.parse(productElement.dataset.item);
+  console.log("The selected product is", product);
+
+  if (document.getElementById("productdetails")) {
+    document.getElementById("productdetails").innerHTML = `<img src="${product.image}" alt="${product.name}">`;
+    return;
+  }
+  // const element = document.createElement("div");
+  // element.id = "productdetails";
+  // element.appendChild(document.createTextNode(product.description));
+  // element.innerHTML = product.description;
+  // document.body.appendChild(element);
 }
 
 // document.getElementById("appcontent").innerHTML = `
