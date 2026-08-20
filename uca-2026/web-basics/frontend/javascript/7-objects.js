@@ -46,17 +46,3 @@ function createStudent(name, age, email, marks) {
 
 const student3 = createStudent("Name3", 20, "name3@gmail.com", 80);
 const student4 = createStudent("Name4", 22, "name4@gmail.com", 90);
-
-// Constructor functions
-// this keyword
-// prototype inheritnace
-
-function constructStudent(name, age, email, marks) {
-  this.name = name;
-  this.age = age;
-  this.email = email;
-  this.mark = marks;
-}
-
-const student1 = new constructStudent("Name3", 20, "name3@gmail.com", 80);
-const student2 = new constructStudent("Name4", 22, "name4@gmail.com", 90);
