@@ -4,3 +4,5 @@
 // 3. In a normal function declaration, the this keyword refers to the object that called the function 
 // but In an arrow function, this keyword is inherited from the parent context
 // Arrow function cannot be called with a new keyword
+// Function declarations have access to a default arguments but it's not accessible
+// in arrow function
