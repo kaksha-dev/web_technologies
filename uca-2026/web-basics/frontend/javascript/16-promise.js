@@ -10,15 +10,27 @@ const callbackFn = (resolve, reject) => {
   if (!promiseSuccess) reject("rejectValue");
 };
 
-const callbackFn2 = (resolve, reject) => {
+const executorFn = (resolveFn, rejectFn) => {
   console.log("Inside promise executor function!");
-  const promiseSuccess = true;
+  const promiseSuccess = false;
   setTimeout(() => {
-    if (promiseSuccess) resolve("successValue");
-    if (!promiseSuccess) reject("rejectValue");
+    if (promiseSuccess) resolveFn("successValue");
+    if (!promiseSuccess) rejectFn("rejectValue");
+    console.log("After reject");
   }, 5000);
 };
 
-const promise1 = new Promise(callbackFn2);
-promise1.then((value) => {console.log("Success value: ", value)})
-promise1.catch((value) => {console.log("Failed value: ", value)})
+try {
+  const promise1 = new Promise(executorFn);
+
+  promise1.then((value) => {
+    console.log("Success value is: ", value);
+  });
+  promise1.catch((value) => {
+    console.log("Error value is: ", value);
+  });
+} catch (error) {
+  console.log("Inside catch block");
+}
+
+// const promise2 = new Promise(executerFunction);

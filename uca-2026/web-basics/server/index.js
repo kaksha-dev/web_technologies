@@ -8,13 +8,11 @@ let value = "Hello world!";
 console.log("Node.js first program", value);
 
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "application/json" });
+  res.writeHead(200, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" });
   res.end(
     JSON.stringify({
-      response: {
-        name: "Josn Doe",
-        description: "Hello world!"
-      },
+      name: "John Doe",
+      description: "Hello world!",
     }),
   );
 });
