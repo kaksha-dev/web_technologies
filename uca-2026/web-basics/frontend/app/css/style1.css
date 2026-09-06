@@ -1,0 +1,32 @@
+body {
+  margin: 50px;
+}
+
+table,
+th,
+td {
+  margin: 20px;
+  padding: 5px;
+  border: 1px;
+  border-color: black;
+  border-style: solid;
+  border-collapse: collapse;
+}
+
+header {
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+#normaljshtml {
+  background-color: lightblue;
+  padding: 20px;
+}
+
+#reactapp {
+  margin: 20px 0px;
+  background-color: lightgreen;
+  padding: 20px;
+}
