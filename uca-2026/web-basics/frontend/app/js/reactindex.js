@@ -3,19 +3,56 @@ const root = ReactDOM.createRoot(app);
 
 root.render(
   <>
-    <ReactTitle title="React Application"></ReactTitle>
-
-    <ManualLikes></ManualLikes>
-    <RenderProducts></RenderProducts>
-    <Form></Form>
+    <React.StrictMode>
+      <ReactTitle title="React Application"></ReactTitle>
+      <ManualLikes></ManualLikes>
+      <RenderProducts></RenderProducts>
+      <Form></Form>
+      <TimerComponent />
+    </React.StrictMode>
   </>,
 );
 
 function ReactTitle(props) {
-  props.title = "React Application Updated";
+  // props.title = "React Application Updated";
   console.log("ReactTitle props: ", props);
+  console.log("ReactTitle children props: ", props.children);
+
   return <h2>{props.title}</h2>;
 }
+
+function TimerComponent(props) {
+  const [secondsElapsed, setSecondsElapsed] = React.useState(0);
+  React.useEffect(() => {
+    fetch("http://localhost:5000/");
+    let x = 10;
+
+    const timer = setInterval(() => {
+      console.log("fetch the current scorecard every 1 second");
+      setSecondsElapsed((currentValue) => currentValue + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  const element = document.getElementById("timer");
+  const observer = new IntersectionObserver((items) => {
+    items.map((item) => {
+      if (item.isIntersecting) {
+        console.log("Time is visible now");
+      } else {
+        console.log("Time is not visible now");
+      }
+    });
+  });
+
+  if (element) observer.observe(element);
+
+  return <h2 id="timer">Seconds elapsed: {secondsElapsed}</h2>;
+}
+
 // DOM update w.r.t. the browser is kind of equivalent to saying a component re-render
 // Step1: Update the local state of the component
 // Step2: React will re-render the component and update the DOM w.r.t. the browser
@@ -29,6 +66,10 @@ function ManualLikes() {
   // const refInput = React.useRef(null);
   // Try with useState
   const [number, setNumber] = React.useState(5);
+
+  React.useEffect(() => {
+    // fetch api calls to fetch the likes count
+  }, []);
 
   // Accepts 2 arguments
   // Arg1: Callback function to be executed
@@ -190,10 +231,9 @@ function RenderProducts() {
       ) : (
         <RTable productsList={productsList}></RTable>
       )}
-      <Button
-        clickEventHandler={updateLocalVariableLikes}
-        text="Update local variable Likes"
-      ></Button>
+      <Button clickEventHandler={updateLocalVariableLikes} text="">
+        Update local variable Likes
+      </Button>
       <p ref={elementRefUsingRef}>Hello p tag</p>
     </>
   );
@@ -209,7 +249,7 @@ function Form() {
 
     setFormElements((currentFormElements) => {
       currentFormElements.push("id4");
-      return currentFormElements;
+      return [...currentFormElements];
     });
   }
 
@@ -241,14 +281,14 @@ function Form() {
   );
 }
 
-function Button(props) {
+function Button({ children, text, clickEventHandler }) {
   // Props: text, eventhandler,
   // style (mostly generic and not part of the prod )
-  console.log("Button component rerendering with props: ", props);
+  // console.log("Button component rerendering with props: ", props);
 
   return (
     <div style={{ padding: "10px" }}>
-      <button onClick={props.clickEventHandler}>{props.text}</button>;
+      <button onClick={clickEventHandler}>{children || text}</button>
     </div>
   );
 }
